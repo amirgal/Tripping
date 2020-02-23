@@ -6,7 +6,7 @@ class Renderer {
         this.mainSpotTemplate = Handlebars.compile($("#main-spot-template").html())
     }
     renderMyTrips(trips) {
-        const newHTML = this.allTripsTemplate(trips);
+        const newHTML = this.allTripsTemplate();
         $('#side-container').empty().append(newHTML);
     }
     renderNewTrip() {

@@ -29,7 +29,7 @@ function initMap() {
     /*Sets initial map view of the entire globe */
 
     /*Sets a marker on the passed location on the map */
-    const addMarker = (location,map) => {
+    const addMarker = (location) => {
         const marker = new google.maps.Marker({
             position:location,
             map:map,
@@ -42,7 +42,7 @@ function initMap() {
     google.maps.event.addListener(map,'click', event => {
         const location = event.latLng
 
-        addMarker(event.latLng,map)
+        addMarker(event.latLng)
         // console.log(`lat: ${location.coords.lat} lng: ${location.coords.lng}`);
 
         // console.log(location.coords.lat); 

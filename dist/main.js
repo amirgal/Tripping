@@ -1,9 +1,9 @@
-// const renderer = new Renderer
-// const tripManager = new TripManager
+const renderer = new Renderer
+const tripManager = new TripManager
 
 
-const loadPage = function() {
-    tripManager.getTrips()
+const loadPage = async function() {
+    await tripManager.getTrips()
     renderer.renderMyTrips(tripManager.myTrips)
 }
 
@@ -25,7 +25,27 @@ $('#side-container').on('click','#newTripBtn',function() {
     renderer.renderNewTrip()
 })
 
-$('#side-container').on('click', 'saveTripBtn', function() {
-    
+$('#side-container').on('click', '.saveTripBtn', function() {
+    const tripName = ''
+    const tripDate = ''
+    // const newTrip = new Trip(tripName, tripDate)
+    // tripManager.saveTrip(newTrip)
 })
 
+$('#side-container').on('click','.saveSpotBtn', function() {
+    const spotName = ''
+    const tripName = ''
+    const coords = ''
+    const comment = ''
+    const photos =''
+    // const newSpot = new Spot(spotName,tripName,coords,comment,photos)
+    // tripManager.saveSpot(newSpot)
+})
+
+const trip = new Trip('brazil', new Date())
+const coords = {lat:0, lng:0}
+trip.coords = coords
+
+tripManager.saveTrip(trip)
+
+loadPage()
