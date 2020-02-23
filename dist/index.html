@@ -1,19 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=initMap"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Tripping</title>
-</head>
-<body>
-    <!-- right side map -->
-    <div id="map"></div> 
+  </head>
+  <body>
+    <!-- top-main-nav -->
+
+    <nav class="nav-extended">
+
+        <div class="nav-wrapper">
+            <ul>
+                <li class="left"><i class="large material-icons">menu</i></li>
+                <li class="center"><i class="large material-icons">menu</i></li>
+                <li class="right"><i class="large material-icons">more_vert</i></li>
+            </ul>
+        </div>
+
+        <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider"></li>
+    <li><a href="#!">three</a></li>
+  </ul>
+
+        <div class="nav-content center">
+          <ul class="tabs tabs-transparent center">
+            <li class="tab" id="map-tab"><a href="#">Map</a></li>
+            <li class="tab" id="timline-tab"><a href="#">Timeline</a></li>
+          </ul>
+        </div>
+      </nav>
+      
+
+
+
+    <!---map container--->
+    <div id="map"></div>
+     <!---map container--->
+
     <!-- left side bar -->
     <div id="side-bar">
-        <div id="side-header"></div>
-        <div id="side-container"></div>
-        <div id="side-footer"></div>
+      <div id="side-header"></div>
+      <div id="side-container"></div>
+      <div id="side-footer"></div>
     </div>
-</body>
+  </body>
 </html>
