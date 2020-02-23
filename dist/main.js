@@ -6,13 +6,13 @@ const loadPage = async function() {
   renderer.renderMyTrips(tripManager.myTrips);
 };
 
-$("#side-container").on("click", ".trip", function() {
+$("#side-bar").on("click", ".trip", function() {
   const tripId = $(this).data().id;
   const trip = tripManager.myTrips.find(trip => trip._id == tripId);
   tripManager.renderTrip(trip);
 });
 
-$("#side-container").on("click", ".trip-spot", function() {
+$("#side-bar").on("click", ".trip-spot", function() {
   const spotId = $(this).data().id;
   const tripName = $(this).data().tripName;
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
@@ -20,18 +20,18 @@ $("#side-container").on("click", ".trip-spot", function() {
   tripManager.renderSpot(spot);
 });
 
-$("#side-container").on("click", "#newTripBtn", function() {
+$("#side-bar").on("click", "#newTripBtn", function() {
   renderer.renderNewTrip();
 });
 
-$("#side-container").on("click", ".saveTripBtn", function() {
+$("#side-bar").on("click", ".saveTripBtn", function() {
   const tripName = "";
   const tripDate = "";
   // const newTrip = new Trip(tripName, tripDate)
   // tripManager.saveTrip(newTrip)
 });
 
-$("#side-container").on("click", ".saveSpotBtn", function() {
+$("#side-bar").on("click", ".saveSpotBtn", function() {
   const spotName = "";
   const tripName = "";
   const coords = "";
