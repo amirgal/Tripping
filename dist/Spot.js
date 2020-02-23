@@ -1,7 +1,7 @@
 class Spot {
-    constructor(name,trip,coords,comment,photos){
+    constructor(name,tripName,coords,comment,photos){
         this.name = name
-        this.trip = trip 
+        this.tripName = tripName
         this.coords = coords
         this.comment = comment || ""
         this.photos = photos || []
