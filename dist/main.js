@@ -1,8 +1,21 @@
-const manager = new TripManager()
-const t1 = new Trip("test",new Date())
+// const mapManager = new MapManager
+// const renderer = new Renderer
+// const tripManager = new tripManager
 
 
-manager.saveTrip(t1)
+const loadPage = function() {
+    initMap()
+    tripManager.getTrips()
+    renderer.renderMyTrips(tripManager.myTrips)
+}
 
-const l1 = new Spot("here","test",{lat:35.000,lng:122.000},"commi" )
-manager.saveLocation(l1)
+// //display trip on trip click
+// $('#side-container').on('click','.tripBtn', function() {
+
+// })
+
+// //Start new trip click -> displays new trip page
+// $('#newTripBtn').on('click',function() {
+//     renderer.renderNewTrip()
+// })
+
