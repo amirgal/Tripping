@@ -1,14 +1,14 @@
-
+const markingEnabled = false
 function initMap() {
 
-    const options = {
-        zoom:1,
-        minZoom:1,
-        center: {lat:0, lng: 0}
-    }
+    // const options = {
+    //     zoom:1,
+    //     minZoom:1,
+    //     center: {lat:0, lng: 0}
+    // }
     /*Create new map with above options and adds it to div #map */
-    this.map = new google.maps.Map(document.getElementById('map'),options)
-    const map = this.map
+     const map = new google.maps.Map(document.getElementById('map'))
+    
     
     /*Sets initial map view of the entire globe */
     google.maps.event.addListenerOnce(map, 'idle', function() {

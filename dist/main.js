@@ -1,21 +1,31 @@
-// const mapManager = new MapManager
 // const renderer = new Renderer
-// const tripManager = new tripManager
+// const tripManager = new TripManager
 
 
 const loadPage = function() {
-    initMap()
     tripManager.getTrips()
     renderer.renderMyTrips(tripManager.myTrips)
 }
 
-// //display trip on trip click
-// $('#side-container').on('click','.tripBtn', function() {
+$('#side-container').on('click','.trip', function() {
+    const tripId = $(this).data().id
+    const trip = tripManager.myTrips.find(trip => trip._id == tripId)
+    tripManager.renderTrip(trip)
+})
 
-// })
+$('#side-container').on('click','.trip-spot', function() {
+    const spotId = $(this).data().id
+    const tripName = $(this).data().tripName
+    const trip = tripManager.myTrips.find(trip => trip.name == tripName)
+    const spot = trip.spots.find(spot => spot._id == spotId)
+    tripManager.renderSpot(spot)
+})
 
-// //Start new trip click -> displays new trip page
-// $('#newTripBtn').on('click',function() {
-//     renderer.renderNewTrip()
-// })
+$('#side-container').on('click','#newTripBtn',function() {
+    renderer.renderNewTrip()
+})
+
+$('#side-container').on('click', 'saveTripBtn', function() {
+    
+})
 
