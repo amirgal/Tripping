@@ -37,7 +37,7 @@ $('#side-bar').on('click', "#newSpotBtn", function() {
 })
 
 $("#side-bar").on("click", "#saveSpotBtn", function() {
-  const spotName = $('#new-comment-input').val();
+  const spotName = $('#new-comment-input').val();   // need to get name from coords click
   const tripName = $(this).closest('#new-spot').data().tripname
   const coords = "";
   const comment = $('#new-comment-input').val();
