@@ -42,10 +42,5 @@ $('#side-container').on('click','.saveSpotBtn', function() {
     // tripManager.saveSpot(newSpot)
 })
 
-const trip = new Trip('brazil', new Date())
-const coords = {lat:0, lng:0}
-trip.coords = coords
-
-tripManager.saveTrip(trip)
 
 loadPage()
