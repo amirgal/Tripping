@@ -38,7 +38,7 @@
 {{#each trip}} 
     <h3>{{name}}</h3>
     {{#each spot}}
-    <div class="trip-spot" data-id="{{_id}}">
+    <div class="trip-spot" data-id="{{_id}}" data-tripName="{{trip}}">
        <p class="spot-name">{{name}}</p>
     </div>
     {{/each}}

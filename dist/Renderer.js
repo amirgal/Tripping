@@ -21,4 +21,8 @@ class Renderer {
         const newHTML = this.mainSpotTemplate();
         $('#side-container').empty().append(newHTML);
     }
+    renderNewSpot() {
+        const newHTML = this.mainSpotTemplate();
+        $('#side-container').empty().append(newHTML);
+    }
 }
