@@ -21,7 +21,7 @@
 <script id="all-trips-template" type="text/x-handlebars">
     <h3>My Trips</h3>
     {{#each trip}}
-     <div class="trip">
+     <div class="trip" data-id="{{_id}}">
        <p class="trip-name">{{name}}</p>            
      </div>
     {{/each}}
@@ -37,23 +37,25 @@
 <script id="main-trip-template" type="text/x-handlebars">
 {{#each trip}} 
     <h3>{{name}}</h3>
-    {{#each location}}
-    <div class="trip-location">{{name}}</div>
+    {{#each spot}}
+    <div class="trip-spot" data-id="{{_id}}">
+       <p class="spot-name">{{name}}</p>
+    </div>
     {{/each}}
 {{/each}}
 </script>
 
-<script id="main-location-template" type="text/x-handlebars">
-    {{#each location}} 
+<script id="main-spot-template" type="text/x-handlebars">
+  
         <h3>{{name}} - {{date}}</h3>
         <h4>Comments</h4>
         <div class="comments">
             {{comment}}
         </div>
-        <div class="location-photos">
+        <div class="spot-photos">
             {{photos}}
         </div>
-    {{/each}}
+    
 </script>
 
 
