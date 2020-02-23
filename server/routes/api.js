@@ -50,7 +50,7 @@ router.post(`/location`, async function(req, res) {
   const locationObj = req.body;
   const location = new Location(locationObj);
   await location.save();
-  await Trip.findOneAndUpdate({name = location.trip}, {$push:{locations: location}})
+  await Trip.findOneAndUpdate({name : location.trip}, {$push:{locations: location}})
   res.end();
 });
 
