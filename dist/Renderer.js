@@ -5,22 +5,29 @@ class Renderer {
         this.mainTripTemplate = Handlebars.compile($("#main-trip-template").html())
         this.mainSpotTemplate = Handlebars.compile($("#main-spot-template").html())
     }
+    
     renderMyTrips(trips) {
-        const newHTML = this.allTripsTemplate(trips);
+        $('#side-header').append('<h3>My Trips</h3>')
+        const newHTML = this.allTripsTemplate({trip: trips});
         $('#side-container').empty().append(newHTML);
     }
+
     renderNewTrip() {
         const newHTML = this.addTripTemplate();
         $('#side-container').empty().append(newHTML);
     }
+
     renderTrip(trip) {
-        const newHTML = this.mainTripTemplate();
+        $('#side-header').append(`<h3>My ${trip.name}</h3>`)
+        const newHTML = this.mainTripTemplate({spot: trip.spot});
         $('#side-container').empty().append(newHTML);
     }
+
     renderSpot(spot) {
         const newHTML = this.mainSpotTemplate();
         $('#side-container').empty().append(newHTML);
     }
+
     renderNewSpot() {
         const newHTML = this.mainSpotTemplate();
         $('#side-container').empty().append(newHTML);

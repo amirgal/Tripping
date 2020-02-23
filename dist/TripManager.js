@@ -9,6 +9,7 @@ class TripManager {
 
   async saveTrip(trip) {
     this.myTrips.push(trip);
+    console.log(trip)
     await $.post("/trip", trip);
   }
 

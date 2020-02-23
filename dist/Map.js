@@ -1,14 +1,14 @@
-
+const markingEnabled = false
 function initMap() {
 
-    const options = {
-        zoom:1,
-        minZoom:1,
-        center: {lat:0, lng: 0}
-    }
+    // const options = {
+    //     zoom:1,
+    //     minZoom:1,
+    //     center: {lat:0, lng: 0}
+    // }
     /*Create new map with above options and adds it to div #map */
-    this.map = new google.maps.Map(document.getElementById('map'),options)
-    const map = this.map
+     const map = new google.maps.Map(document.getElementById('map'))
+    
     
     /*Sets initial map view of the entire globe */
     google.maps.event.addListenerOnce(map, 'idle', function() {
@@ -29,7 +29,7 @@ function initMap() {
     /*Sets initial map view of the entire globe */
 
     /*Sets a marker on the passed location on the map */
-    const addMarker = (location,map) => {
+    const addMarker = (location) => {
         const marker = new google.maps.Marker({
             position:location,
             map:map,
@@ -42,7 +42,7 @@ function initMap() {
     google.maps.event.addListener(map,'click', event => {
         const location = event.latLng
 
-        addMarker(event.latLng,map)
+        addMarker(event.latLng)
         // console.log(`lat: ${location.coords.lat} lng: ${location.coords.lng}`);
 
         // console.log(location.coords.lat); 
