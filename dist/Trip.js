@@ -3,7 +3,7 @@ class Trip {
         this.name = name
         this.date = date
         this.coords = {}
-        this.locations = []
+        this.spots = []
     }
 
 }

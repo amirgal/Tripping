@@ -3,11 +3,13 @@
 // const tripManager = new tripManager
 
 
-const loadPage = function() {
+async const loadPage = function() {
     initMap()
-    tripManager.getTrips()
+    await tripManager.getTrips()
     renderer.renderMyTrips(tripManager.myTrips)
 }
+
+
 
 // //display trip on trip click
 // $('#side-container').on('click','.tripBtn', function() {

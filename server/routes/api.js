@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const Trip = require("../models/LocationModel");
-const Location = require("../models/TripModel");
+const Trip = require("../models/TripModel");
+const Spot = require("../models/SpotModel");
 const apiKey = "ad2a455b26a132204d39870ab339bf22";
 
 const converter = async function(url) {
@@ -28,7 +28,9 @@ router.get(`/convert/:lat/:lng`, async function(req, res) {
 });
 
 router.get(`/myTrips`, async function(req, res) {
-  const trips = await Trip.find({}).populate("locations");
+  const trips = await Trip.find({}).populate("spots");
+  console.log(trips);
+  
   res.send(trips);
 });
 
@@ -48,32 +50,37 @@ router.post(`/trip`, async function(req, res) {
   res.end();
 });
 
-router.post(`/location`, async function(req, res) {
-  const locationObj = req.body;
-  const location = new Location(locationObj);
-  await location.save();
-  await Trip.findOneAndUpdate({name : location.trip}, {$push:{locations: location}})
+router.post(`/spot`, async function(req, res) {
+  const spotObj = req.body;
+  const spot = new Spot(spotObj);
+  await spot.save();
+  await Trip.findOneAndUpdate({name : spot.trip}, {$push:{spots: spot}})
   res.end();
 });
 
 router.delete(`/trip/:name`, async function(req, res) {
   const { name } = req.params;
   const trip = await Trip.findOne({ name: name });
-  trip.locations.forEach(async function(L) {
-    let name = L.name;
-    await Location.deleteOne({ name: name });
+  trip.spots.forEach(async function(S) {
+    let spotName = S.name;
+    await Spot.deleteOne({ name: spotName });
   });
   await Trip.deleteOne({ name: name });
   console.log(`deleted trip: ${name}`);
   res.end();
 });
 
-router.delete(`/location/:id`, async function(req, res) {
+router.delete(`/spot/:id`, async function(req, res) {
   const { id } = req.params;
-  const trip = await Location.findOne({ _id: id }).trip;
-  await Trip.findOne({ name: trip }).locations.deleteOne({ _id: id });
-  await Location.deleteOne({ _id: id });
-  console.log(`deleted location: ${name}`);
+  const spot = await Spot.findOne({ _id: id });
+  console.log(spot.trip);
+  
+  const trip = await Trip.findOne({ name: spot.trip })
+  const index = trip.spots.findIndex(s => s._id == id);
+  trip.spots.splice(index,1)
+  await Trip.findOneAndUpdate({name : trip.name},{spots : trip.spots})
+  await Spot.deleteOne({ _id: id });
+  console.log(`deleted spot: ${name}`);
   res.end();
 });
 

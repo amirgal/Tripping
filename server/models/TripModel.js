@@ -8,7 +8,7 @@ const tripSchema = new Schema({
     lat: Number,
     lng: Number
   },
-  locations: []
+  spots: [{type:Schema.Types.ObjectId, ref:'Spot'}]
 });
 
 const Trip = mongoose.model("Trip", tripSchema);

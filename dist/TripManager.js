@@ -5,6 +5,8 @@ class TripManager {
 
   async getTrips() {
     this.myTrips = await $.get("/myTrips");
+    console.log(this.myTrips);
+    
   }
 
   async saveTrip(trip) {
@@ -14,22 +16,22 @@ class TripManager {
     
   }
 
-  async saveLocation(location) {
-    const index = this.myTrips.findIndex(t => t.name == location.tripName);
-    this.myTrips[index].locations.push(location);
-    await $.post(`/location`, location);
+  async saveSpot(spot) {
+    const index = this.myTrips.findIndex(t => t.name == spot.trip);
+    this.myTrips[index].spots.push(spot);
+    await $.post(`/spot`, spot);
   }
 
-  async deleteLocation(location) {
-    const index = this.myTrips.findIndex(t => t.name == location.tripName);
-    const locationIndex = this.myTrips[index].locations.findIndex(
-      l => l.name == location.name
+  async deleteSpot(spot) {
+    const index = this.myTrips.findIndex(t => t.name == spot.trip);
+    const spotIndex = this.myTrips[index].spots.findIndex(
+      s => s.name == spot.name
     );
     $.ajax({
-      url: `/location/${location._id}`,
+      url: `/spot/${spot._id}`,
       type: "DELETE",
       success: function() {
-        this.myTrips[index].locations.splice(locationIndex, 1);
+        this.myTrips[index].spots.splice(spotIndex, 1);
       }
     });
   }
@@ -44,17 +46,17 @@ class TripManager {
         }
       });
   }
-  updateLocation(location){
-    const index = this.myTrips.findIndex(t => t.name == location.tripName);
-    const locationIndex = this.myTrips[index].locations.findIndex(
-      l => l.name == location.name
+  updateSpot(spot){
+    const index = this.myTrips.findIndex(t => t.name == spot.trip);
+    const spotIndex = this.myTrips[index].spots.findIndex(
+      s => s.name == spot.name
     );
     $.ajax({
-        url: `/location`,
+        url: `/spot`,
         type: "PUT",
-        data: location,
+        data: spot,
         success: function(res) {
-            this.myTrips[index].locations.splice(locationIndex,1,location)
+            this.myTrips[index].spots.splice(spotIndex,1,spot)
         }
       });
   }
