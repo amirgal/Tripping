@@ -4,32 +4,32 @@ class Renderer {
         this.addTripTemplate = Handlebars.compile($("#add-trip-template").html())
         this.mainTripTemplate = Handlebars.compile($("#main-trip-template").html())
         this.mainSpotTemplate = Handlebars.compile($("#main-spot-template").html())
+        this.newSpotTemplate = Handlebars.compile($('#new-spot-template').html())
     }
     
     renderMyTrips(trips) {
-        $('#side-header').append('<h3>My Trips</h3>')
         const newHTML = this.allTripsTemplate({trip: trips});
-        $('#side-container').empty().append(newHTML);
+        $('#side-bar').empty().append(newHTML);
     }
 
     renderNewTrip() {
         const newHTML = this.addTripTemplate();
-        $('#side-container').empty().append(newHTML);
+        $('#side-bar').empty().append(newHTML);
     }
 
+    //check to make sure displays all spots
     renderTrip(trip) {
-        $('#side-header').append(`<h3>My ${trip.name}</h3>`)
-        const newHTML = this.mainTripTemplate({spot: trip.spot});
-        $('#side-container').empty().append(newHTML);
+        const newHTML = this.mainTripTemplate(trip);
+        $('#side-bar').empty().append(newHTML);
     }
 
     renderSpot(spot) {
-        const newHTML = this.mainSpotTemplate();
-        $('#side-container').empty().append(newHTML);
+        const newHTML = this.mainSpotTemplate(spot);
+        $('#side-bar').empty().append(newHTML);
     }
 
-    renderNewSpot() {
-        const newHTML = this.mainSpotTemplate();
-        $('#side-container').empty().append(newHTML);
+    renderNewSpot(trip) {
+        const newHTML = this.newSpotTemplate(trip);
+        $('#side-bar').empty().append(newHTML);
     }
 }

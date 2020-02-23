@@ -1,8 +1,6 @@
 class Trip {
-    constructor(name,date){
+    constructor(name){
         this.name = name
-        this.date = date
-        this.coords = {}
         this.spots = []
     }
 

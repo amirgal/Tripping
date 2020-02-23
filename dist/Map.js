@@ -23,7 +23,7 @@ function initMap() {
         mapObj.fitBounds(worldBounds, 0);
         const actualBounds = mapObj.getBounds();
         if(actualBounds.getSouthWest().lng() == -180 && actualBounds.getNorthEast().lng() == 180) {
-            mapObj.setZoom(mapObj.getZoom()+1);
+            mapObj.setZoom(mapObj.getZoom());
         }
     }
     /*Sets initial map view of the entire globe */

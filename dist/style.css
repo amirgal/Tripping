@@ -5,10 +5,7 @@ body {
 
 #side-bar {
     height: 100vh;
-    display: grid;
-    grid-template-rows: 1fr 8fr 1fr;
 }
-
 
 #map {
     height: 100vh;
