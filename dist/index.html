@@ -35,13 +35,14 @@
 </script>
 
 <script id="main-trip-template" type="text/x-handlebars">
-    <div class="trip-spot" data-id="{{_id}}" data-tripName="{{trip}}">
+  {{#each spot}}  
+  <div class="trip-spot" data-id="{{_id}}" data-tripName="{{trip}}">
        <p class="spot-name">{{name}}</p>
     </div>
+    {{/each}}
 </script>
 
 <script id="main-spot-template" type="text/x-handlebars">
-        <h3>{{name}} - {{date}}</h3>
         <h4>Comments</h4>
         <div class="comments">
             {{comment}}

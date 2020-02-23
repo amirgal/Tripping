@@ -7,7 +7,7 @@ class Renderer {
     }
     renderMyTrips(trips) {
         $('#side-header').append('<h3>My Trips</h3>')
-        const newHTML = this.allTripsTemplate(trips);
+        const newHTML = this.allTripsTemplate({trip: trips});
         $('#side-container').empty().append(newHTML);
     }
     renderNewTrip() {
@@ -16,7 +16,7 @@ class Renderer {
     }
     renderTrip(trip) {
         $('#side-header').append(`<h3>My ${trip.name}</h3>`)
-        const newHTML = this.mainTripTemplate();
+        const newHTML = this.mainTripTemplate({spot: trip.spot});
         $('#side-container').empty().append(newHTML);
     }
     renderSpot(spot) {
