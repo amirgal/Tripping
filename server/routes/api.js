@@ -30,19 +30,13 @@ router.get(`/convert/:lat/:lng`, async function(req, res) {
 router.get(`/myTrips`, async function(req, res) {
   const trips = await Trip.find({}).populate("spots");
   console.log(trips);
-  
+
   res.send(trips);
 });
 
-// router.get(`/location/:name`, async function(req, res) {
-//   const { name } = req.params;
-//   const location = await Location.findOne({ name: name });
-//   res.send(location);
-// });
-
 router.post(`/trip`, async function(req, res) {
   console.log("here");
-  
+
   const tripObj = req.body;
   const trip = new Trip(tripObj);
   await trip.save();
@@ -52,9 +46,10 @@ router.post(`/trip`, async function(req, res) {
 
 router.post(`/spot`, async function(req, res) {
   const spotObj = req.body;
+  console.log(spotObj)
   const spot = new Spot(spotObj);
   await spot.save();
-  await Trip.findOneAndUpdate({name : spot.trip}, {$push:{spots: spot}})
+  await Trip.findOneAndUpdate({ name: spot.trip }, { $push: { spots: spot } });
   res.end();
 });
 
@@ -74,13 +69,20 @@ router.delete(`/spot/:id`, async function(req, res) {
   const { id } = req.params;
   const spot = await Spot.findOne({ _id: id });
   console.log(spot.trip);
-  
-  const trip = await Trip.findOne({ name: spot.trip })
+
+  const trip = await Trip.findOne({ name: spot.trip });
   const index = trip.spots.findIndex(s => s._id == id);
-  trip.spots.splice(index,1)
-  await Trip.findOneAndUpdate({name : trip.name},{spots : trip.spots})
+  trip.spots.splice(index, 1);
+  await Trip.findOneAndUpdate({ name: trip.name }, { spots: trip.spots });
   await Spot.deleteOne({ _id: id });
   console.log(`deleted spot: ${name}`);
+  res.end();
+});
+
+router.put(`/spot`, async function(req, res) {
+  const spot = req.body;
+  await Spot.replaceOne({ _id: spot._id }, spot);
+  console.log(`updated ${spot}`);
   res.end();
 });
 
