@@ -31,26 +31,26 @@
         <h3>Create New Trip</h3>
         <h5>Set trip name:</h5>
         <input type="text" id="trip-name-input" placeholder="Enter trip name">
-        <h5>Set trip area:</h5>
-        <input type="text" id="" placeholder="Enter trip area"><button>Search</button>
         <button id="backToTripsBtn">Go Back</button>
         <button id="saveTripBtn">Create Trip</button>
     </script>
 
     <script id="main-trip-template" type="text/x-handlebars">
-        <h3>{{name}}</h3>
-        {{#each spot}}      
-            <div class="trip-spot" data-id="{{_id}}" data-tripName="{{trip}}">
+        <div id="trip-spots" data-tripname="{{name}}">
+            <h3>{{name}}</h3>
+            {{#each spots}}      
+            <div class="trip-spot" data-id="{{_id}}">
                 <p class="spot-name">{{name}}</p>
             </div>
-        {{/each}}
-        <button id="backToTripsBtn">Go Back</button>
-        <button id="addSpotBtn">Add New Spot</button>
+            {{/each}}
+            <button id="backToTripsBtn">Go Back</button>
+            <button id="newSpotBtn">Add New Spot</button>
+        </div>
     </script>
 
     <script id="main-spot-template" type="text/x-handlebars">
             <h3>{{name}}</h3>
-            <h5>Comments</h5>
+            <h5>Comment</h5>
             <div class="comments">
                 {{comment}}
             </div>
@@ -60,17 +60,19 @@
     </script>
 
     <script id="new-spot-template" type="text/x-handlebars">
-        <h4>Trip name : {{name}}</h4>
-        <h4>Double click on the map to choose your spot!</h4>
-        <span class="when">Start Date</span><input type="date" class="spot-date" />
-        <h3>Comment</h3>
-        <input id="new-comment-input" type="text" placeholder="Tell us about this spot"/>
-        <div class="spot-photos">
-            <button id="link-google-photos"></button>
-            <label for="myfile">Select a file:</label>
-            <input type="file" id="myphotos" name="myphotos" multiple />
-            <button id="save-new-spot">Save Spot</button>
-            <button id="back-to-current-trip">Go Back</button>
+        <div id="new-spot" data-tripname="{{name}}">
+            <h4>{{name}}</h4>
+            <h4>Double click on the map to choose your spot!</h4>
+            <span class="when">Start Date</span><input type="date" id="spot-date" />
+            <h3>Comment</h3>
+            <input id="new-comment-input" type="text" placeholder="Tell us about this spot"/>
+            <div class="spot-photos">
+                <button id="link-google-photos"></button>
+                <label for="myfile">Select a file:</label>
+                <input type="file" id="myphotos" name="myphotos" multiple />
+                <button id="saveSpotBtn">Save Spot</button>
+                <button id="back-to-current-trip">Go Back</button>
+            </div>
         </div>
     </script>
 
