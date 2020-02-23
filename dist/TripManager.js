@@ -10,6 +10,8 @@ class TripManager {
   async saveTrip(trip) {
     this.myTrips.push(trip);
     await $.post("/trip", trip);
+    console.log(this.myTrips);
+    
   }
 
   async saveLocation(location) {
@@ -57,3 +59,5 @@ class TripManager {
       });
   }
 }
+
+

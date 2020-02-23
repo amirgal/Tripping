@@ -39,6 +39,8 @@ router.get(`/myTrips`, async function(req, res) {
 // });
 
 router.post(`/trip`, async function(req, res) {
+  console.log("here");
+  
   const tripObj = req.body;
   const trip = new Trip(tripObj);
   await trip.save();
@@ -50,7 +52,7 @@ router.post(`/location`, async function(req, res) {
   const locationObj = req.body;
   const location = new Location(locationObj);
   await location.save();
-  await Trip.findOneAndUpdate({name = location.trip}, {$push:{locations: location}})
+  await Trip.findOneAndUpdate({name : location.trip}, {$push:{locations: location}})
   res.end();
 });
 

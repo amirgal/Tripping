@@ -1,4 +1,4 @@
-class Location {
+class Spot {
     constructor(name,trip,coords,comment,photos){
         this.name = name
         this.trip = trip 
