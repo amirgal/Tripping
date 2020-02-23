@@ -1,24 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Tripping</title>
-</head>
-<body>
-    <!-- right side map -->
-    <div id="map"></div> 
+  </head>
+  <body>
+    <!-- top-main-nav -->
+
+   
+      
+
+    <!---map container--->
+    <div id="map"></div>
+   
+
+<script id="all-trips-template" type="text/x-handlebars">
+    <h3>My Trips</h3>
+    {{#each trip}}
+     <div class="trip" data-id="{{_id}}">
+       <p class="trip-name">{{name}}</p>            
+     </div>
+    {{/each}}
+</script>
+
+<script id="add-trip-template" type="text/x-handlebars">
+    <h3>Set trip name:</h3>
+    <input type="text" placeholder="Enter trip name">
+    <h3>Set trip area:</h3>
+    <input type="text" placeholder="Enter trip area"><button>Search</button>
+</script>
+
+<script id="main-trip-template" type="text/x-handlebars">
+{{#each trip}} 
+    <h3>{{name}}</h3>
+    {{#each spot}}
+    <div class="trip-spot" data-id="{{_id}}" data-tripName="{{trip}}">
+       <p class="spot-name">{{name}}</p>
+    </div>
+    {{/each}}
+{{/each}}
+</script>
+
+<script id="main-spot-template" type="text/x-handlebars">
+  
+        <h3>{{name}} - {{date}}</h3>
+        <h4>Comments</h4>
+        <div class="comments">
+            {{comment}}
+        </div>
+        <div class="spot-photos">
+            {{photos}}
+        </div>
+    
+</script>
+
+
+
+
     <!-- left side bar -->
     <div id="side-bar">
-        <div id="side-header"></div>
-        <div id="side-container"></div>
-        <div id="side-footer"></div>
+      <div id="side-header"></div>
+      <div id="side-container"></div>
+      <div id="side-footer"></div>
     </div>
+
     
-    
-    <!-- <script src="./handlebars/dist/handlebars.js"></script>
-    <script src="./jquery/dist/jquery.js"></script> -->
+   
+    <script src="./handlebars/dist/handlebars.js"></script>
+    <script src="./jquery/dist/jquery.js"></script>
     <script src="Trip.js"></script>
     <script src="Location.js"></script>
     <script src="Renderer.js"></script>
@@ -28,3 +82,4 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=initMap"></script>
 </body>
 </html>
+
