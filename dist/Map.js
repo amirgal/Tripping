@@ -107,7 +107,7 @@ function initMap() {
         markers = []
     }
 
-    return {centerMap, renderMapItems, removeMapItems}
+    return {centerMap, renderMapItems, removeMapItems, addNewMarker}
 }
 
 

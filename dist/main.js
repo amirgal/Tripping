@@ -75,8 +75,9 @@ $('#side-bar').on('click', '#spot-search-btn', async function() {
 })
 
 $('#side-bar').on('click','#my-location', async function () {
-  const myLocation = await geoLocation.getLocation()
-  
+  currPosition = await geoLocation.getLocation()
+  markingEnabled = false
+  mapManager.addNewMarker(currPosition)
 })
 
 $('#side-bar').on('click','#set-spot-coords', function() {
