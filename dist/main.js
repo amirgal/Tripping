@@ -40,7 +40,7 @@ $("#side-bar").on("click", ".trip-spot", function() {
     const tripName = $(this).closest('#trip-spots').data().tripname;
     const trip = tripManager.myTrips.find(trip => trip.name == tripName);
     const spot = trip.spots.find(spot => spot.name == spotName);
-    mapManager.centerMap(spot.coords,8)
+    mapManager.centerMap(8,spot.coords)
 });
 
 $("#side-bar").on("click", "#newTripBtn", function() {
@@ -79,6 +79,7 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
   renderAllTripMarkers()
+  // mapManager.centerMap(5,{lat:0,lng:0})
 });
 
 $("#side-bar").on("click", "#back-to-current-trip", function() {

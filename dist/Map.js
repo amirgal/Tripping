@@ -57,13 +57,6 @@ function initMap() {
     })
     /*Sets a marker on click and pushes a coords obj to locations array */
 
-    // google.maps.event.addListener(marker, 'click', function() {
-    //     const html = renderer.renderSpot(marker.spot)
-    //     const infowindow = new google.maps.InfoWindow({
-    //         content:`${html}`
-    //     });
-    //         infowindow.open(map,marker);
-    //     });
 
     const renderMarkers = function (trip) {
         const spots = trip.spots
@@ -73,9 +66,12 @@ function initMap() {
     }
 
 
-    const centerMap = function(coords,zoom) {
-        map.setCenter(coords)
+    const centerMap = function(zoom,coords) {
+        // google.maps.event.trigger(map, 'resize');
+        // map.panBy(0, 0);
         map.setZoom(zoom)
+        map.setCenter(coords)
     }
+
     return {centerMap, renderMarkers}
 }
