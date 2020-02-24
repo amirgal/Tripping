@@ -1,5 +1,6 @@
 const renderer = new Renderer();
 const tripManager = new TripManager();
+const geoLocation = new GeoLocation();
 let mapManager;
 
 loadMap = function() {
@@ -71,6 +72,11 @@ $('#side-bar').on('click', '#spot-search-btn', async function() {
   const spotName = $('#spot-search-input').val()
   const coords = await tripManager.nameToCoords(spotName)
   mapManager.centerMap(7, coords)
+})
+
+$('#side-bar').on('click','#my-location', async function () {
+  const myLocation = await geoLocation.getLocation()
+  
 })
 
 $('#side-bar').on('click','#set-spot-coords', function() {
