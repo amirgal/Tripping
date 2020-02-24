@@ -68,7 +68,7 @@ class TripManager {
   // }
 
   async nameToCoords(name) {
-    const coords = await $.get(`/convert/${name}`);
+    const coords = await $.get(`/convert/${name}`)
     return coords;
   }
 }
