@@ -119,10 +119,13 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
 });
 
 $('#map').on('click','#editedSaveSpotBtn',function(){
-  const oldSpotName = $(this)
-  .closest(".info-window-edit")
-  .data().spotname;
-  const tripName = $(this)
+  if($('#edited-spot-name-input').val().length == 0 ||$('#edited-spot-comment-input').val().length == 0 ){
+    alert("Spot name and spot description are required!");
+  }else{
+    const oldSpotName = $(this)
+    .closest(".info-window-edit")
+    .data().spotname;
+    const tripName = $(this)
     .closest(".info-window-edit")
     .data().tripname;
     const trip = tripManager.myTrips.find(trip => trip.name == tripName);
@@ -135,7 +138,7 @@ $('#map').on('click','#editedSaveSpotBtn',function(){
     tripManager.updateSpot(spot)
     const html = renderer.renderSpot(spot)
     mapManager.setInfoWindowContent(html)
-
+  }
 })
 
 $("#side-bar").on("click", "#backToTripsBtn", function() {
