@@ -118,6 +118,26 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
   }
 });
 
+$('#map').on('click','#editedSaveSpotBtn',function(){
+  const oldSpotName = $(this)
+  .closest(".info-window-edit")
+  .data().spotname;
+  const tripName = $(this)
+    .closest(".info-window-edit")
+    .data().tripname;
+    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+    const spot = trip.spots.find(spot => spot.name == oldSpotName);
+    spot.name = $('#edited-spot-name-input').val()
+    if($('#edited-spot-date-input').val().length != 0){
+      spot.date = $('#edited-spot-date-input').val()
+    }
+    spot.comment = $('#edited-spot-comment-input').val()
+    tripManager.updateSpot(spot)
+    const html = renderer.renderSpot(spot)
+    mapManager.setInfoWindowContent(html)
+
+})
+
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
   renderAllTripsMapItems();
@@ -190,5 +210,18 @@ $("#side-bar").on("click", ".deleteSpot", async function() {
     mapManager.renderMapItems(trip);
   }
 });
+
+$('#map').on('click','.edit-spot',function(){
+  const spotName = $(this)
+  .closest(".info-window")
+  .data().spotname;
+  const tripName = $(this)
+  .closest(".info-window")
+  .data().tripname;
+  const tripIndex = tripManager.myTrips.findIndex(trip => trip.name == tripName)
+  const spotIndex = tripManager.myTrips[tripIndex].spots.findIndex(spot => spot.name == spotName)
+  const infoWindowHtml = renderer.renderEditSpot(tripManager.myTrips[tripIndex].spots[spotIndex])
+  mapManager.setInfoWindowContent(infoWindowHtml)
+})
 
 loadPage();
