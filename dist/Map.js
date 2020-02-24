@@ -43,7 +43,8 @@ function initMap() {
         const marker = new google.maps.Marker({
             position:spot.coords,
             map:map,
-            spot:spot
+            spot:spot,
+            // icon:'https://img.icons8.com/offices/30/000000/walking.png'
             })
         google.maps.event.addListener(marker, 'click', function() {
             const html = renderer.renderSpot(marker.spot)
@@ -106,7 +107,7 @@ function initMap() {
         markers = []
     }
 
-    return {centerMap, renderMapItems, removeMapItems}
+    return {centerMap, renderMapItems, removeMapItems, addNewMarker}
 }
 
 

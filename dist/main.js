@@ -1,5 +1,6 @@
 const renderer = new Renderer();
 const tripManager = new TripManager();
+const geoLocation = new GeoLocation();
 let mapManager;
 
 loadMap = function() {
@@ -73,6 +74,13 @@ $('#side-bar').on('click', '#spot-search-btn', async function() {
   mapManager.centerMap(7, coords)
 })
 
+$('#side-bar').on('click','#my-location', async function () {
+  currPosition = await geoLocation.getLocation()
+  markingEnabled = false
+  mapManager.centerMap(7, currPosition)
+  mapManager.addNewMarker(currPosition)
+})
+
 $('#side-bar').on('click','#set-spot-coords', function() {
   const tripName = $(this).data().tripname
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
@@ -101,7 +109,7 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
   renderAllTripsMapItems()
-  mapManager.centerMap(2,{lat:0,lng:0})
+  mapManager.centerMap(2,{lat:35,lng:10})
 });
 
 $("#side-bar").on("click", "#back-to-current-trip", function() {
@@ -140,7 +148,7 @@ $("#side-bar").on("click", "#deleteTrip", function() {
   ) {
     tripManager.deleteTrip(trip);
     loadPage();
-    mapManager.centerMap(2,{lat:0,lng:0})
+    mapManager.centerMap(2,{lat:35,lng:10})
   }
 });
 
