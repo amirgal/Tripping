@@ -2,18 +2,10 @@ let markingEnabled = false
 let currPosition
 function initMap() {
 
-    // const options = {
-    //     zoom:1,
-    //     minZoom:1,
-    //     center: {lat:0, lng: 0}
-    // }
-    /*Create new map with above options and adds it to div #map */
-     const map = new google.maps.Map(document.getElementById('map'))
-    
+    const map = new google.maps.Map(document.getElementById('map')) 
     
     /*Sets initial map view of the entire globe */
     google.maps.event.addListenerOnce(map, 'idle', function() {
-        //Map is ready
         worldViewFit(map);
     });
     function worldViewFit(mapObj) {
@@ -36,7 +28,6 @@ function initMap() {
             position:location,
             map:map,
             })
-        //   map.setCenter(location.coords)
     }
     /*Sets a marker on the passed location on the map */
 
@@ -47,10 +38,12 @@ function initMap() {
             addMarker(location)
             markingEnabled = false
         }
-        // console.log(`lat: ${location.coords.lat} lng: ${location.coords.lng}`);
-
-        // console.log(location.coords.lat); 
     })
     /*Sets a marker on click and pushes a coords obj to locations array */
-    return markingEnabled
+
+    const centerMap = function(coords,zoom) {
+        map.setCenter(coords)
+        map.setZoom(zoom)
+    }
+    return {centerMap}
 }
