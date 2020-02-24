@@ -62,13 +62,14 @@
 
     <script id="edit-trip-template" type="text/x-handlebars">
       <div id="edit-trip" data-tripname="{{name}}">
-        <div id="Name">
+        <div id="editName">
           <p>Trip Name:</p>
           <input class="changeName" type="text" value="{{name}}">
         </div>
           {{#each spots}}
           <div class="spot" data-name="{{name}}">
-              <p class="spot-name">{{name}}</p><span class="deleteSpot">X</span>
+              <p class="spot-name">{{name}}</p>
+              <p class="deleteSpot">X</p>
           </div>
           {{/each}}
           <button id="editDone">Done Editing</button>
@@ -92,8 +93,9 @@
       <input type="text" name="" id="spot-search-input" placeholder="Search Location">
       <button id="spot-search-btn">Search</button>
       <h6>click on the map to choose your location and then click Next</h6>
-      <button id="set-spot-coords" data-tripname="{{name}}">Next</button>
+      <button id="back-to-current-trip">Go Back</button>
       <button id="my-location" data-tripname="{{name}}">Use My Location</button>
+      <button id="set-spot-coords" data-tripname="{{name}}">Next</button>
     </script>
 
     <script id="new-spot-template" type="text/x-handlebars">

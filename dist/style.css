@@ -108,6 +108,28 @@ body {
   color: white;
   grid-column: 6/7;
 }
-.changeName{
-
+#edit-trip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center;
+  padding: 20px;
+}
+#editName {
+  grid-column: 1/7;
+  font-size: 18px;
+}
+#edit-trip .spot {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column: 1/7;
+}
+#edit-trip .spot-name {
+  grid-column: 1/6;
+}
+#edit-trip .deleteSpot {
+  grid-column: 6/7;
+}
+.changeName {
+  text-align: center;
+  color: white;
 }
