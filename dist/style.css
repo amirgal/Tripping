@@ -15,18 +15,17 @@ body {
   text-align: center;
 }
 
-#newTripBtn {
+.button {
   width: calc(100% - 30px);
   margin: auto;
   margin-top: 30px;
   display: grid;
   height: 50px;
   border-radius: 10px;
-  color: #6f9ba5;
   background-color: #023e58;
+  background-color: #6f9ba5;
   align-content: center;
   font-size: 20px;
-  text-shadow: #0e1626 1px 1px 1px;
 }
 #trip-name-input {
   text-align: center;
@@ -41,19 +40,19 @@ body {
 #backToTripsBtn {
   display: inline;
   font-size: 20px;
-  color: white;
+  color: #6f9ba5;
 }
-#saveTripBtn {
+/* #saveTripBtn {
   grid-column: 1/7;
   margin-top: 30px;
   display: grid;
   height: 50px;
   border-radius: 10px;
-  background-color: rgba(115, 255, 0, 0.8);
+  background-color: #6f9ba5;
   align-content: center;
   font-size: 20px;
-}
-#newSpotBtn {
+} */
+/* #newSpotBtn {
   width: calc(100% - 30px);
   margin: auto;
   grid-column: 1/7;
@@ -61,11 +60,11 @@ body {
   display: grid;
   height: 50px;
   border-radius: 10px;
-  background-color: rgba(115, 255, 0, 0.8);
+  background-color: #6f9ba5;
   align-content: center;
   font-size: 20px;
-}
-.trip {
+} */
+.card {
   background-color: #2c6675;
   width: calc(100% - 30px);
   margin: auto;
@@ -77,8 +76,8 @@ body {
   font-size: 25px;
 }
 
-.trip-spot {
-  background-color: rgba(190, 190, 190, 0.8);
+/* .trip-spot {
+  background-color: #2c6675;
   width: calc(100% - 30px);
   margin: auto;
   margin-top: 20px;
@@ -87,27 +86,26 @@ body {
   border-radius: 10px;
   align-content: center;
   font-size: 25px;
-}
+} */
 
 .navHeader {
   text-align: center;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  background-color: rgba(50, 50, 50, 1);
   padding-top: 15px;
   padding-bottom: 30px;
   grid-column: 1/7;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #6f9ba5;
 }
 .navHeader h3 {
   margin: 0;
   grid-column: 1/7;
-  color: white;
+  color: #6f9ba5;
   font-size: 32px;
 }
 #editTrip {
   font-size: 20px;
-  color: white;
+  color: #6f9ba5;
   grid-column: 6/7;
 }
 #edit-trip {
@@ -117,6 +115,7 @@ body {
   padding: 20px;
 }
 #editName {
+  color: #6f9ba5;
   grid-column: 1/7;
   font-size: 18px;
 }
