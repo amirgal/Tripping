@@ -82,7 +82,7 @@ $('#side-bar').on('click','#my-location', async function () {
 })
 
 $('#side-bar').on('click','#set-spot-coords', function() {
-  const tripName = $(this).data().tripname
+  const tripName = $(this).closest('.new-spot').data().tripname
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
   if(!markingEnabled){    //only after click
     renderer.renderNewSpot(trip);
@@ -93,7 +93,7 @@ $('#side-bar').on('click','#set-spot-coords', function() {
 $("#side-bar").on("click", "#saveSpotBtn", function() {
   const spotName = $("#spot-name-input").val();
   const tripName = $(this)
-    .closest("#new-spot")
+    .closest(".new-spot")
     .data().tripname;
   const coords = currPosition;
   const comment = $("#new-comment-input").val();
@@ -114,7 +114,7 @@ $("#side-bar").on("click", "#backToTripsBtn", function() {
 
 $("#side-bar").on("click", "#back-to-current-trip", function() {
   const tripName = $(this)
-    .closest("#new-spot")
+    .closest(".new-spot")
     .data().tripname;
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
   if (
@@ -125,6 +125,9 @@ $("#side-bar").on("click", "#back-to-current-trip", function() {
     renderer.renderTrip(trip);
     mapManager.removeAllMarkers()
     mapManager.renderMarkers(trip);
+    if(trip.spots.length != 0) {
+      mapManager.centerMap(5,trip.spots[0].coords)
+    }
   }
 });
 
