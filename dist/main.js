@@ -1,14 +1,14 @@
 const renderer = new Renderer();
 const tripManager = new TripManager();
-let mapManager
+let mapManager;
 
 loadMap = function() {
-    mapManager = initMap()
-}
+  mapManager = initMap();
+};
 
 const loadPage = async function() {
-    await tripManager.getTrips();
-    renderer.renderMyTrips(tripManager.myTrips);
+  await tripManager.getTrips();
+  renderer.renderMyTrips(tripManager.myTrips);
 };
 
 $("#side-bar").on("click", ".trip", function() {
@@ -19,7 +19,9 @@ $("#side-bar").on("click", ".trip", function() {
 
 $("#side-bar").on("click", ".trip-spot", function() {
   const spotId = $(this).data().id;
-  const tripName = $(this).closest('#trip-spots').data().tripname;
+  const tripName = $(this)
+    .closest("#trip-spots")
+    .data().tripname;
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
   const spot = trip.spots.find(spot => spot._id == spotId);
   renderer.renderSpot(spot);
@@ -29,28 +31,39 @@ $("#side-bar").on("click", "#newTripBtn", function() {
   renderer.renderNewTrip();
 });
 
-$("#side-bar").on("click", "#saveTripBtn", function() {
-  const tripName = $('#trip-name-input').val()
-  const newTrip = new Trip(tripName, tripDate)
-  tripManager.saveTrip(newTrip)
+$("#side-bar").on("click", "#saveTripBtn", async function() {
+  const tripName = $("#trip-name-input").val();
+  const newTrip = new Trip(tripName);
+  await tripManager.saveTrip(newTrip);
+  renderer.renderTrip(newTrip);
 });
 
-$('#side-bar').on('click', "#newSpotBtn", function() {
-    markingEnabled = true                           //allow marking after clicking to create new spot
-    const tripName = $(this).closest('#trip-spots').data().tripname
-    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-    renderer.renderNewSpot(trip)
-})
+$("#side-bar").on("click", "#newSpotBtn", function() {
+  markingEnabled = true; //allow marking after clicking to create new spot
+  const tripName = $(this)
+    .closest("#trip-spots")
+    .data().tripname;
+  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+  renderer.renderNewSpot(trip);
+});
 
 $("#side-bar").on("click", "#saveSpotBtn", function() {
-    const spotName = $('#new-comment-input').val();   // need to get name from coords click
-    const tripName = $(this).closest('#new-spot').data().tripname
-    const coords = currPosition;
-    const comment = $('#new-comment-input').val();
-    const photos = "";
-    const newSpot = new Spot(spotName,tripName,coords,comment,photos)
-    console.log(newSpot);
-    tripManager.saveSpot(newSpot)
+  const spotName = $("#new-comment-input").val(); // need to get name from coords click
+  const tripName = $(this)
+    .closest("#new-spot")
+    .data().tripname;
+  const coords = currPosition;
+  const comment = $("#new-comment-input").val();
+  const photos = "";
+  const newSpot = new Spot(spotName, tripName, coords, comment, photos);
+  console.log(newSpot);
+  const trip = tripManager.myTrips.find(t => t.name == tripName)
+  tripManager.saveSpot(newSpot);
+  renderer.renderTrip(trip);
+});
+
+$("#side-bar").on("click", "#backToTripsBtn", function() {
+  renderer.renderMyTrips(tripManager.myTrips);
 });
 
 loadPage();
