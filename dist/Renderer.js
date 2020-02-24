@@ -25,7 +25,7 @@ class Renderer {
 
     renderSpot(spot) {
         const newHTML = this.mainSpotTemplate(spot);
-        $('#side-bar').empty().append(newHTML);
+        return newHTML
     }
 
     renderNewSpot(trip) {

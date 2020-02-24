@@ -19,7 +19,7 @@
     <script id="all-trips-template" type="text/x-handlebars">
         <h3>My Trips</h3>
         {{#each trip}}
-            <div class="trip" data-id="{{_id}}">
+            <div class="trip" data-name="{{name}}">
                 <p class="trip-name">{{name}}</p>            
             </div>
         {{/each}}
@@ -39,7 +39,7 @@
         <div id="trip-spots" data-tripname="{{name}}">
             <h3>{{name}}</h3>
             {{#each spots}}      
-            <div class="trip-spot" data-id="{{_id}}">
+            <div class="trip-spot" data-name="{{name}}">
                 <p class="spot-name">{{name}}</p>
             </div>
             {{/each}}
