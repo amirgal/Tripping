@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const Trip = require("../models/TripModel");
 const Spot = require("../models/SpotModel");
-const apiKey = "ad2a455b26a132204d39870ab339bf22";
+const apiKey = "b20af2a902234cf497d49ca1cf549238";
 
 const converter = async function(url) {
   let result = await axios.get(url);
@@ -12,11 +12,11 @@ const converter = async function(url) {
 
 router.get(`/convert/:name`, async function(req, res) {
   const { name } = req.params;
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${apiKey}&units=metric`;
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${name}&key=${apiKey}`;
   let coordsData = await converter(url);
   const coords = {
-    lat: coordsData.coord.lat,
-    lng: coordsData.coord.lon
+    lat: coordsData.results[0].geometry.lat,
+    lng: coordsData.results[0].geometry.lng
   };
   res.send(coords);
 });
