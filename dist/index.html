@@ -1,79 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Tripping</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <!-- left side bar -->
     <div id="side-bar"></div>
-    
+
     <!---map container--->
     <div id="map"></div>
 
     <script id="all-trips-template" type="text/x-handlebars">
-        <h3>My Trips</h3>
-        {{#each trip}}
-            <div class="trip" data-id="{{_id}}">
-                <p class="trip-name">{{name}}</p>            
-            </div>
-        {{/each}}
-        <button id="newTripBtn">Start New Trip</button>
-       
+      <h3>My Trips</h3>
+      {{#each trip}}
+          <div class="trip" data-name="{{name}}">
+              <p class="trip-name">{{name}}</p>
+          </div>
+      {{/each}}
+      <button id="newTripBtn">Start New Trip</button>
     </script>
 
     <script id="add-trip-template" type="text/x-handlebars">
-        <h3>Create New Trip</h3>
-        <h5>Set trip name:</h5>
-        <input type="text" id="trip-name-input" placeholder="Enter trip name">
-        <button id="backToTripsBtn">Go Back</button>
-        <button id="saveTripBtn">Create Trip</button>
+      <h3>Create New Trip</h3>
+      <h5>Set trip name:</h5>
+      <input type="text" id="trip-name-input" placeholder="Enter trip name">
+      <button id="backToTripsBtn">Go Back</button>
+      <button id="saveTripBtn">Create Trip</button>
     </script>
 
     <script id="main-trip-template" type="text/x-handlebars">
-        <div id="trip-spots" data-tripname="{{name}}">
-            <h3>{{name}}</h3>
-            {{#each spots}}      
-            <div class="trip-spot" data-id="{{_id}}">
-                <p class="spot-name">{{name}}</p>
-            </div>
-            {{/each}}
-            <button id="backToTripsBtn">Go Back</button>
-            <button id="newSpotBtn">Add New Spot</button>
-        </div>
+      <div id="trip-spots" data-tripname="{{name}}">
+          <h3>{{name}}</h3>
+          {{#each spots}}
+          <div class="trip-spot" data-name="{{name}}">
+              <p class="spot-name">{{name}}</p>
+          </div>
+          {{/each}}
+          <button id="backToTripsBtn">Go Back</button>
+          <button id="newSpotBtn">Add New Spot</button>
+          <button id="editTrip">Edit Trip</button>
+      </div>
+    </script>
+
+    <script id="edit-trip-template" type="text/x-handlebars">
+      <div id="edit-trip" data-tripname="{{name}}">
+          <input class="changeName" type="text" value="{{name}}">
+          {{#each spots}}
+          <div class="trip-spot" data-id="{{_id}}">
+              <p class="spot-name">{{name}}</p><span class="deleteSpot">X</span>
+          </div>
+          {{/each}}
+          <button id="editDone">Done Editing</button>
+          <button id="deleteTrip">Delete Trip</button>
+      </div>
     </script>
 
     <script id="main-spot-template" type="text/x-handlebars">
-            <h3>{{name}}</h3>
-            <h5>Comment</h5>
-            <div class="comments">
-                {{comment}}
-            </div>
-            <div class="spot-photos">
-                {{photos}}
-            </div>
+      <h3>{{name}}</h3>
+      <h5>Comment</h5>
+      <div class="comments">
+          {{comment}}
+      </div>
+      <div class="spot-photos">
+          {{photos}}
+      </div>
     </script>
 
     <script id="new-spot-template" type="text/x-handlebars">
-        <div id="new-spot" data-tripname="{{name}}">
-            <h4>{{name}}</h4>
-            <h6>Double click on the map to choose your spot!</h6>
-            <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
-            <span class="when">Start Date</span><input type="date" id="spot-date" />
-            <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
-            <div class="spot-photos">
-                <button id="link-google-photos"></button>
-                <label for="myfile">Select a file:</label>
-                <input type="file" id="myphotos" name="myphotos" multiple>
-                <button id="saveSpotBtn">Save Spot</button>
-                <button id="back-to-current-trip">Go Back</button>
-            </div>
-        </div>
+      <div id="new-spot" data-tripname="{{name}}">
+          <h4>{{name}}</h4>
+          <h6>Double click on the map to choose your spot!</h6>
+          <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
+          <span class="when">Start Date</span><input type="date" id="spot-date" />
+          <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
+          <div class="spot-photos">
+              <!-- <button id="link-google-photos"></button>
+              <label for="myfile">Select a file:</label>
+              <input type="file" id="myphotos" name="myphotos" multiple> -->
+              <button id="saveSpotBtn">Save Spot</button>
+              <button id="back-to-current-trip">Go Back</button>
+          </div>
+      </div>
     </script>
 
     <script src="./handlebars/dist/handlebars.js"></script>
@@ -84,7 +102,10 @@
     <script src="TripManager.js"></script>
     <script src="Map.js"></script>
     <script src="main.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=loadMap"></script>
-</body>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=loadMap"
+    ></script>
+  </body>
 </html>
-

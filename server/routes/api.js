@@ -47,7 +47,7 @@ router.post(`/trip`, async function(req, res) {
 
 router.post(`/spot`, async function(req, res) {
   const spotObj = req.body;
-  console.log(spotObj)
+  console.log(spotObj);
   const spot = new Spot(spotObj);
   await spot.save();
   await Trip.findOneAndUpdate({ name: spot.trip }, { $push: { spots: spot } });
@@ -58,8 +58,8 @@ router.delete(`/trip/:name`, async function(req, res) {
   const { name } = req.params;
   const trip = await Trip.findOne({ name: name });
   trip.spots.forEach(async function(S) {
-    let spotName = S.name;
-    await Spot.deleteOne({ name: spotName });
+    let spotId = S._id;
+    await Spot.deleteOne({ _id: spotId });
   });
   await Trip.deleteOne({ name: name });
   console.log(`deleted trip: ${name}`);
