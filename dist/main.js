@@ -155,8 +155,8 @@ $("#side-bar").on("click", "#back-to-current-trip", function() {
     )
   ) {
     renderer.renderTrip(trip);
-    mapManager.removeAllMarkers();
-    mapManager.renderMarkers(trip);
+    mapManager.removeMapItems();
+    mapManager.renderMapItems(trip);
     if (trip.spots.length != 0) {
       mapManager.centerMap(5, trip.spots[0].coords);
     }
