@@ -8,9 +8,13 @@
       rel="stylesheet"
     />
     <link
+      rel="icon"
+      href="https://image.flaticon.com/icons/svg/1127/1127839.svg"
+    />
+    <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
+    /> -->
     <link rel="stylesheet" href="style.css" />
     <title>Tripping</title>
   </head>
@@ -24,13 +28,16 @@
     <script id="all-trips-template" type="text/x-handlebars">
       <!-- <h3>My Trips</h3> -->
       <div id="mytrips">
+        <div class="navHeader">
+          <div id="newTripBtn" class="addButton"><i class="fas fa-plus"></i></div>
+            <h3>My trips</h3>
+        </div>
         {{#each trip}}
-          <div class="trip" data-name="{{name}}">
+          <div class="trip card" data-name="{{name}}">
               <p class="trip-name">{{name}}</p>
           </div>
         {{/each}}
       </div>
-        <div id="newTripBtn">Start New Trip</div>
       </div>
     </script>
 
@@ -38,42 +45,44 @@
       <div id="createName">
         <!-- <h3>Create New Trip</h3> -->
         <!-- <h5>Set trip name:</h5> -->
-        <div id="backToTripsBtn"><i class="fas fa-chevron-left"></i></div>
-        <input type="text" id="trip-name-input" placeholder="Enter trip name">
-        <div id="saveTripBtn">Create Trip</div>
+        <div class="navHeader">
+          <div id="backToTripsBtn" class="back"><i class="fas fa-chevron-left"></i></div>
+          <input type="text" id="trip-name-input" placeholder="Enter trip name">
+          <div id="saveTripBtn"><i class="fas fa-check"></i></div>
+        </div>
       </div>
     </script>
 
     <script id="main-trip-template" type="text/x-handlebars">
       <div id="trip-spots" data-tripname="{{name}}">
         <div class="navHeader">
-          <div id="backToTripsBtn"><i class="fas fa-chevron-left"></i></div>
+          <div id="backToTripsBtn" class="back"><i class="fas fa-chevron-left"></i></div>
           <div id="editTrip"><i class="far fa-edit"></i></div>
             <h3>{{name}}</h3>
-        </div>
+          </div>
+          <div id="newSpotBtn" class="card"> <p class="title">Add New Spot</p> <i class="fas fa-map-pin"></i></div>
           {{#each spots}}
-          <div class="trip-spot" data-name="{{name}}">
+          <div class="trip-spot card" data-name="{{name}}">
               <p class="spot-name">{{name}}</p>
           </div>
           {{/each}}
-          <div id="newSpotBtn">Add New Spot</div>
       </div>
     </script>
 
     <script id="edit-trip-template" type="text/x-handlebars">
       <div id="edit-trip" data-tripname="{{name}}">
-        <div id="editName">
+        <div id=change class="navHeader">
+          <div id="editDone" class="back"><i class="fas fa-chevron-left"></i></div>
           <p>Trip Name:</p>
-          <input class="changeName" type="text" value="{{name}}">
+          <div id="deleteTrip"><i class="far fa-trash-alt"></i></div>
+         <input class="changeName" type="text" value="{{name}}">
         </div>
-          {{#each spots}}
-          <div class="spot" data-name="{{name}}">
-              <p class="spot-name">{{name}}</p>
-              <p class="deleteSpot">X</p>
-          </div>
-          {{/each}}
-          <button id="editDone">Done Editing</button>
-          <button id="deleteTrip">Delete Trip</button>
+        {{#each spots}}
+        <div class="spot card" data-name="{{name}}">
+          <p class="spot-name">{{name}}</p>
+          <p class="deleteSpot"><i class="far fa-trash-alt"></i></p>
+        </div>
+        {{/each}}
       </div>
     </script>
 
@@ -90,14 +99,18 @@
     </script>
 
     <script id="spot-search-template" type="text/x-handlebars">
-        <div class="new-spot" data-tripname="{{name}}">
-            <input type="text" name="" id="spot-search-input" placeholder="Search Location">
-            <button id="spot-search-btn">Search</button>
-            <h6>click on the map to choose your location and then click Next</h6>
-            <button id="back-to-current-trip">Go Back</button>
-            <button id="my-location">Use My Location</button> <!--data-tripname="{{name}}"-->
-            <button id="set-spot-coords">Next</button> <!--data-tripname="{{name}}"-->
+      <div class="new-spot" data-tripname="{{name}}">
+        <div class="navHeader">
+          <div id="back-to-current-trip" class="back"><i class="fas fa-chevron-left"></i></div>
+          <input type="text" name="" id="spot-search-input" placeholder="Find Location">
+          <div id="spot-search-btn"><i class="fas fa-search"></i></div>
         </div>
+            <div id="spot-directions">
+              <h4>Drop a pin on the map and click next</h4>
+            </div>
+          <div id="my-location" class="button">Use My Location</div> <!--data-tripname="{{name}}"-->
+          <div id="set-spot-coords"><i class="fas fa-chevron-right"></i></div> <!--data-tripname="{{name}}"-->
+      </div>
     </script>
 
     <script id="new-spot-template" type="text/x-handlebars">
