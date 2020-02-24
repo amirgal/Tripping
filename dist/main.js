@@ -139,6 +139,7 @@ $("#side-bar").on("click", "#deleteTrip", function() {
   ) {
     tripManager.deleteTrip(trip);
     loadPage();
+    mapManager.centerMap(2,{lat:0,lng:0})
   }
 });
 
@@ -158,6 +159,8 @@ $("#side-bar").on("click", ".deleteSpot", async function() {
   ) {
     await tripManager.deleteSpot(spot);
     renderer.renderEditTrip(trip);
+    mapManager.removeAllMarkers()
+    mapManager.renderMarkers(trip)
   }
 });
 
