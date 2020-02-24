@@ -22,31 +22,56 @@ function initMap() {
     /*Sets initial map view of the entire globe */
 
     /*Sets a marker on the passed location on the map */
-    const addMarker = (location) => {
+    const addNewMarker = (location) => {
         currPosition = location
         const marker = new google.maps.Marker({
             position:location,
             map:map,
             })
     }
+
+    const addMarker = (spot) => {
+        const marker = new google.maps.Marker({
+            position:spot.coords,
+            map:map,
+            spot:spot
+            })
+        google.maps.event.addListener(marker, 'click', function() {
+            const html = renderer.renderSpot(marker.spot)
+            const infowindow = new google.maps.InfoWindow({
+                content:`${html}`
+            });
+                infowindow.open(map,marker);
+            });
+    }
+
     /*Sets a marker on the passed location on the map */
 
     /*Sets a marker on click and pushes a coords obj to locations array */
     google.maps.event.addListener(map,'click', event => {
         const location = {lat: event.latLng.lat(), lng: event.latLng.lng()}
         if(markingEnabled){
-            addMarker(location)
+            addNewMarker(location)
             markingEnabled = false
         }
     })
     /*Sets a marker on click and pushes a coords obj to locations array */
 
+    // google.maps.event.addListener(marker, 'click', function() {
+    //     const html = renderer.renderSpot(marker.spot)
+    //     const infowindow = new google.maps.InfoWindow({
+    //         content:`${html}`
+    //     });
+    //         infowindow.open(map,marker);
+    //     });
+
     const renderMarkers = function (trip) {
         const spots = trip.spots
         spots.forEach(spot => {
-            addMarker(spot.coords)
+            addMarker(spot)
         });
     }
+
 
     const centerMap = function(coords,zoom) {
         map.setCenter(coords)
