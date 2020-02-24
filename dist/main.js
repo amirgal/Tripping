@@ -7,6 +7,7 @@ loadMap = function() {
 };
 
 const renderAllTripMarkers = function() {
+  mapManager.removeAllMarkers()
   tripManager.myTrips.forEach(trip => {
     if(trip.spots.length != 0){
       mapManager.renderMarkers(trip)
