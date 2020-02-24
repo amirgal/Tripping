@@ -24,6 +24,7 @@ $("#side-bar").on("click", ".trip", function() {
     const tripName = $(this).data().name;
     const trip = tripManager.myTrips.find(trip => trip.name == tripName);
     renderer.renderTrip(trip);
+    mapManager.removeAllMarkers()
     mapManager.renderMarkers(trip)
 });
 
