@@ -29,7 +29,7 @@ class Renderer {
       .empty()
       .append(newHTML);
   }
-  
+
   renderEditTrip(trip) {
     const newHTML = this.editTripTemplate(trip);
     $("#side-bar")
@@ -39,9 +39,7 @@ class Renderer {
 
   renderSpot(spot) {
     const newHTML = this.mainSpotTemplate(spot);
-    $("#side-bar")
-      .empty()
-      .append(newHTML);
+    return newHTML;
   }
 
   renderNewSpot(trip) {

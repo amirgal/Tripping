@@ -6,15 +6,25 @@ loadMap = function() {
   mapManager = initMap();
 };
 
+const renderAllTripMarkers = function() {
+  tripManager.myTrips.forEach(trip => {
+    if(trip.spots.length != 0){
+      mapManager.renderMarkers(trip)
+    }
+  })
+}
+
 const loadPage = async function() {
   await tripManager.getTrips();
   renderer.renderMyTrips(tripManager.myTrips);
+  renderAllTripMarkers()
 };
 
 $("#side-bar").on("click", ".trip", function() {
-  const tripName = $(this).data().name;
-  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  renderer.renderTrip(trip);
+    const tripName = $(this).data().name;
+    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+    renderer.renderTrip(trip);
+    mapManager.renderMarkers(trip)
 });
 
 $("#side-bar").on("click", "#editTrip", function() {
@@ -26,14 +36,11 @@ $("#side-bar").on("click", "#editTrip", function() {
 });
 
 $("#side-bar").on("click", ".trip-spot", function() {
-  const spotName = $(this).data().name;
-  const tripName = $(this)
-    .closest("#trip-spots")
-    .data().tripname;
-  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  const spot = trip.spots.find(spot => spot.name == spotName);
-  renderer.renderSpot(spot);
-  mapManager.centerMap(spot.coords, 8);
+    const spotName = $(this).data().name;
+    const tripName = $(this).closest('#trip-spots').data().tripname;
+    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+    const spot = trip.spots.find(spot => spot.name == spotName);
+    mapManager.centerMap(spot.coords,8)
 });
 
 $("#side-bar").on("click", "#newTripBtn", function() {
@@ -57,10 +64,8 @@ $("#side-bar").on("click", "#newSpotBtn", function() {
 });
 
 $("#side-bar").on("click", "#saveSpotBtn", function() {
-  const spotName = $("#new-comment-input").val(); // need to get name from coords click
-  const tripName = $(this)
-    .closest("#new-spot")
-    .data().tripname;
+  const spotName = $("#spot-name-input").val();
+  const tripName = $(this).closest("#new-spot").data().tripname;
   const coords = currPosition;
   const comment = $("#new-comment-input").val();
   const photos = "";
@@ -68,10 +73,12 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
   tripManager.saveSpot(newSpot);
   renderer.renderTrip(trip);
+  mapManager.renderMarkers(trip)
 });
 
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
+  renderAllTripMarkers()
 });
 
 $("#side-bar").on("click", "#back-to-current-trip", function() {

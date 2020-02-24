@@ -22,13 +22,14 @@
     <div id="map"></div>
 
     <script id="all-trips-template" type="text/x-handlebars">
-      <h3>My Trips</h3>
-      {{#each trip}}
-          <div class="trip" data-name="{{name}}">
-              <p class="trip-name">{{name}}</p>
-          </div>
-      {{/each}}
-      <button id="newTripBtn">Start New Trip</button>
+        <h3>My Trips</h3>
+        {{#each trip}}
+            <div class="trip" data-name="{{name}}">
+                <p class="trip-name">{{name}}</p>            
+            </div>
+        {{/each}}
+        <button id="newTripBtn">Start New Trip</button>
+       
     </script>
 
     <script id="add-trip-template" type="text/x-handlebars">
@@ -57,7 +58,7 @@
       <div id="edit-trip" data-tripname="{{name}}">
           <input class="changeName" type="text" value="{{name}}">
           {{#each spots}}
-          <div class="trip-spot" data-id="{{_id}}">
+          <div class="trip-spot" data-name="{{name}}">
               <p class="spot-name">{{name}}</p><span class="deleteSpot">X</span>
           </div>
           {{/each}}
