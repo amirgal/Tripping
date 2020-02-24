@@ -12,20 +12,21 @@ const converter = async function(url) {
 
 router.get(`/convert/:name`, async function(req, res) {
   const { name } = req.params;
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
-  let coords = await converter(url);
-  coords = {
-    lat: coords.coord.lat,
-    lng: coords.coord.lon
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${apiKey}&units=metric`;
+  let coordsData = await converter(url);
+  const coords = {
+    lat: coordsData.coord.lat,
+    lng: coordsData.coord.lon
   };
   res.send(coords);
 });
-router.get(`/convert/:lat/:lng`, async function(req, res) {
-  const { lat, lng } = req.params;
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`;
-  let name = await converter(url).name;
-  res.send(name);
-});
+// router.get(`/convert/:lat/:lng`, async function(req, res) {
+//   const { lat, lng } = req.params;
+//   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`;
+//   let data = await converter(url);
+//   let name = data.name
+//   res.send(name);
+// });
 
 router.get(`/myTrips`, async function(req, res) {
   const trips = await Trip.find({}).populate("spots");

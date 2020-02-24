@@ -52,4 +52,17 @@ class TripManager {
     });
     this.myTrips[index].spots.splice(spotIndex, 1, spot);
   }
+
+  // async coordsToName(coords){
+  //   const lat = parseInt(coords.lat)
+  //   const lng = parseInt(coords.lng)
+  //   const name = await $.get(`/convert/${lat}/${lng}`)
+  //   return name
+  // }
+
+  async nameToCoords(name){
+    const coords = await $.get(`/convert/${name}`)
+    return coords
+    
+  }
 }
