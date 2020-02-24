@@ -27,6 +27,9 @@ $("#side-bar").on("click", ".trip", function() {
     renderer.renderTrip(trip);
     mapManager.removeAllMarkers()
     mapManager.renderMarkers(trip)
+    if(trip.spots.length != 0) {
+      mapManager.centerMap(5,trip.spots[0].coords)
+    }
 });
 
 $("#side-bar").on("click", "#editTrip", function() {
@@ -42,7 +45,7 @@ $("#side-bar").on("click", ".trip-spot", function() {
     const tripName = $(this).closest('#trip-spots').data().tripname;
     const trip = tripManager.myTrips.find(trip => trip.name == tripName);
     const spot = trip.spots.find(spot => spot.name == spotName);
-    mapManager.centerMap(8,spot.coords)
+    mapManager.centerMap(7,spot.coords)
 });
 
 $("#side-bar").on("click", "#newTripBtn", function() {
