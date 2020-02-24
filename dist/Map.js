@@ -31,10 +31,10 @@ function initMap() {
 
     /*Sets a marker on the passed location on the map */
     const addNewMarker = (location) => {
-        // currPosition = location
         const marker = new google.maps.Marker({
             position:location,
             map:map,
+            icon: "https://img.icons8.com/color/48/000000/map-pin.png"
             })
         markers.push(marker)
     }
@@ -44,7 +44,7 @@ function initMap() {
             position:spot.coords,
             map:map,
             spot:spot,
-            // icon:'https://img.icons8.com/offices/30/000000/walking.png'
+            icon: "https://img.icons8.com/color/48/000000/map-pin.png"
             })
         google.maps.event.addListener(marker, 'click', function() {
             const html = renderer.renderSpot(marker.spot)
@@ -76,7 +76,6 @@ function initMap() {
             addMarker(spot)
         });
         const coordsArray = trip.spots.map(spot => { return {lat: (spot.coords.lat),lng:(spot.coords.lng)}})
-        console.log(coordsArray);
         const tripPath = new google.maps.Polyline({
             path: coordsArray,
             geodesic: true,
