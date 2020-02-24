@@ -8,23 +8,23 @@ loadMap = function() {
 
 const renderAllTripMarkers = function() {
   tripManager.myTrips.forEach(trip => {
-    if(trip.spots.length != 0){
-      mapManager.renderMarkers(trip)
+    if (trip.spots.length != 0) {
+      mapManager.renderMarkers(trip);
     }
-  })
-}
+  });
+};
 
 const loadPage = async function() {
   await tripManager.getTrips();
   renderer.renderMyTrips(tripManager.myTrips);
-  renderAllTripMarkers()
+  renderAllTripMarkers();
 };
 
 $("#side-bar").on("click", ".trip", function() {
-    const tripName = $(this).data().name;
-    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-    renderer.renderTrip(trip);
-    mapManager.renderMarkers(trip)
+  const tripName = $(this).data().name;
+  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+  renderer.renderTrip(trip);
+  mapManager.renderMarkers(trip);
 });
 
 $("#side-bar").on("click", "#editTrip", function() {
@@ -36,11 +36,13 @@ $("#side-bar").on("click", "#editTrip", function() {
 });
 
 $("#side-bar").on("click", ".trip-spot", function() {
-    const spotName = $(this).data().name;
-    const tripName = $(this).closest('#trip-spots').data().tripname;
-    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-    const spot = trip.spots.find(spot => spot.name == spotName);
-    mapManager.centerMap(spot.coords,8)
+  const spotName = $(this).data().name;
+  const tripName = $(this)
+    .closest("#trip-spots")
+    .data().tripname;
+  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+  const spot = trip.spots.find(spot => spot.name == spotName);
+  mapManager.centerMap(spot.coords, 8);
 });
 
 $("#side-bar").on("click", "#newTripBtn", function() {
@@ -65,7 +67,9 @@ $("#side-bar").on("click", "#newSpotBtn", function() {
 
 $("#side-bar").on("click", "#saveSpotBtn", function() {
   const spotName = $("#spot-name-input").val();
-  const tripName = $(this).closest("#new-spot").data().tripname;
+  const tripName = $(this)
+    .closest("#new-spot")
+    .data().tripname;
   const coords = currPosition;
   const comment = $("#new-comment-input").val();
   const photos = "";
@@ -73,12 +77,12 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
   tripManager.saveSpot(newSpot);
   renderer.renderTrip(trip);
-  mapManager.renderMarkers(trip)
+  mapManager.renderMarkers(trip);
 });
 
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
-  renderAllTripMarkers()
+  renderAllTripMarkers();
 });
 
 $("#side-bar").on("click", "#back-to-current-trip", function() {
@@ -100,13 +104,8 @@ $("#side-bar").on("click", "#editDone", function() {
     .closest("#edit-trip")
     .data().tripname;
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  if (
-    confirm(
-      "Are you sure you want to go back? All your unsaved changes will be lost"
-    )
-  ) {
-    renderer.renderTrip(trip);
-  }
+
+  renderer.renderTrip(trip);
 });
 
 $("#side-bar").on("click", "#deleteTrip", function() {
@@ -119,6 +118,25 @@ $("#side-bar").on("click", "#deleteTrip", function() {
   ) {
     tripManager.deleteTrip(trip);
     loadPage();
+  }
+});
+
+$("#side-bar").on("click", ".deleteSpot", async function() {
+  const tripName = $(this)
+    .closest("#edit-trip")
+    .data().tripname;
+  const spotName = $(this)
+    .closest(".spot")
+    .data().name;
+  let trip = tripManager.myTrips.find(trip => trip.name == tripName);
+  const spot = trip.spots.find(
+    spot => spot.name == spotName
+  );
+  if (
+    confirm("Are you sure you want to delete this post? this cannot be undone")
+  ) {
+    await tripManager.deleteSpot(spot);
+    renderer.renderEditTrip(trip);
   }
 });
 

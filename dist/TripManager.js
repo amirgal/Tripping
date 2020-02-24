@@ -9,7 +9,6 @@ class TripManager {
 
   async saveTrip(trip) {
     this.myTrips.push(trip);
-    console.log(trip)
     await $.post("/trip", trip);
   }
 
@@ -24,7 +23,7 @@ class TripManager {
     const spotIndex = this.myTrips[index].spots.findIndex(
       s => s.name == spot.name
     );
-    await $.ajax({
+    $.ajax({
       url: `/spot/${spot._id}`,
       type: "DELETE"
     });
@@ -45,12 +44,12 @@ class TripManager {
     const spotIndex = this.myTrips[index].spots.findIndex(
       s => s.name == spot.name
     );
+    this.myTrips[index].spots.splice(spotIndex, 1, spot);
     await $.ajax({
       url: `/spot`,
       type: "PUT",
       data: spot
     });
-    this.myTrips[index].spots.splice(spotIndex, 1, spot);
   }
 
   // async coordsToName(coords){
@@ -60,9 +59,8 @@ class TripManager {
   //   return name
   // }
 
-  async nameToCoords(name){
-    const coords = await $.get(`/convert/${name}`)
-    return coords
-    
+  async nameToCoords(name) {
+    const coords = await $.get(`/convert/${name}`);
+    return coords;
   }
 }

@@ -62,28 +62,23 @@ router.delete(`/trip/:name`, async function(req, res) {
     await Spot.deleteOne({ _id: spotId });
   });
   await Trip.deleteOne({ name: name });
-  console.log(`deleted trip: ${name}`);
   res.end();
 });
 
 router.delete(`/spot/:id`, async function(req, res) {
   const { id } = req.params;
   const spot = await Spot.findOne({ _id: id });
-  console.log(spot.trip);
-
   const trip = await Trip.findOne({ name: spot.trip });
   const index = trip.spots.findIndex(s => s._id == id);
   trip.spots.splice(index, 1);
   await Trip.findOneAndUpdate({ name: trip.name }, { spots: trip.spots });
   await Spot.deleteOne({ _id: id });
-  console.log(`deleted spot: ${name}`);
   res.end();
 });
 
 router.put(`/spot`, async function(req, res) {
   const spot = req.body;
   await Spot.replaceOne({ _id: spot._id }, spot);
-  console.log(`updated ${spot}`);
   res.end();
 });
 
