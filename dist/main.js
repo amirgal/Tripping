@@ -110,11 +110,12 @@ $("#side-bar").on("click", "#back-to-current-trip", function() {
 
 $("#side-bar").on("click", "#editDone", function() {
   const tripName = $(this)
-    .closest("#edit-trip")
-    .data().tripname;
-  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-
-  renderer.renderTrip(trip);
+  .closest("#edit-trip")
+  .data().tripname;
+const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+trip.name = $('.changeName').val()
+tripManager.updateTrip(trip)
+renderer.renderTrip(trip);
 });
 
 $("#side-bar").on("click", "#deleteTrip", function() {
