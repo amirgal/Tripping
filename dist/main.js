@@ -60,13 +60,27 @@ $("#side-bar").on("click", "#saveTripBtn", async function() {
 });
 
 $("#side-bar").on("click", "#newSpotBtn", function() {
-  markingEnabled = true; //allow marking after clicking to create new spot
+  markingEnabled = true; 
   const tripName = $(this)
     .closest("#trip-spots")
     .data().tripname;
-  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  renderer.renderNewSpot(trip);
+  renderer.renderSpotSearch(tripName)
 });
+
+$('#side-bar').on('click', '#spot-search-btn', async function() {
+  const spotName = $('#spot-search-input').val()
+  const coords = await tripManager.nameToCoords(spotName)
+  mapManager.centerMap(7, coords)
+})
+
+$('#side-bar').on('click','#set-spot-coords', function() {
+  const tripName = $(this).data().tripname
+  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+  if(!markingEnabled){    //only after click
+    renderer.renderNewSpot(trip);
+  }
+})
+
 
 $("#side-bar").on("click", "#saveSpotBtn", function() {
   const spotName = $("#spot-name-input").val();
@@ -87,7 +101,7 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
   renderAllTripsMapItems()
-  // mapManager.centerMap(5,{lat:0,lng:0})
+  mapManager.centerMap(2,{lat:0,lng:0})
 });
 
 $("#side-bar").on("click", "#back-to-current-trip", function() {
@@ -101,6 +115,8 @@ $("#side-bar").on("click", "#back-to-current-trip", function() {
     )
   ) {
     renderer.renderTrip(trip);
+    mapManager.removeAllMarkers()
+    mapManager.renderMarkers(trip);
   }
 });
 
@@ -124,6 +140,7 @@ $("#side-bar").on("click", "#deleteTrip", function() {
   ) {
     tripManager.deleteTrip(trip);
     loadPage();
+    mapManager.centerMap(2,{lat:0,lng:0})
   }
 });
 
@@ -145,6 +162,7 @@ $("#side-bar").on("click", ".deleteSpot", async function() {
     renderer.renderEditTrip(trip);
     mapManager.removeMapItems()
     mapManager.renderMapItems(trip)
+
   }
 });
 

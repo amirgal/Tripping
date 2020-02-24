@@ -31,7 +31,7 @@ function initMap() {
 
     /*Sets a marker on the passed location on the map */
     const addNewMarker = (location) => {
-        currPosition = location
+        // currPosition = location
         const marker = new google.maps.Marker({
             position:location,
             map:map,
@@ -61,6 +61,7 @@ function initMap() {
         infowindow.close()
         const location = {lat: event.latLng.lat(), lng: event.latLng.lng()}
         if(markingEnabled){
+            currPosition = location
             addNewMarker(location)
             markingEnabled = false
         }
@@ -95,8 +96,6 @@ function initMap() {
 
 
     const centerMap = function(zoom,coords) {
-        // google.maps.event.trigger(map, 'resize');
-        // map.panBy(0, 0);
         map.setZoom(zoom)
         map.setCenter(coords)
     }
