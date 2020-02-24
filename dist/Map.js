@@ -1,4 +1,5 @@
-const markingEnabled = false
+let markingEnabled = false
+let currPosition
 function initMap() {
 
     // const options = {
@@ -30,6 +31,7 @@ function initMap() {
 
     /*Sets a marker on the passed location on the map */
     const addMarker = (location) => {
+        currPosition = location
         const marker = new google.maps.Marker({
             position:location,
             map:map,
@@ -40,13 +42,15 @@ function initMap() {
 
     /*Sets a marker on click and pushes a coords obj to locations array */
     google.maps.event.addListener(map,'click', event => {
-        const location = event.latLng
-
-        addMarker(event.latLng)
+        const location = {lat: event.latLng.lat(), lng: event.latLng.lng()}
+        if(markingEnabled){
+            addMarker(location)
+            markingEnabled = false
+        }
         // console.log(`lat: ${location.coords.lat} lng: ${location.coords.lng}`);
 
         // console.log(location.coords.lat); 
     })
     /*Sets a marker on click and pushes a coords obj to locations array */
-
+    return markingEnabled
 }
