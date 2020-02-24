@@ -1,7 +1,7 @@
 let markingEnabled = false
 let currPosition
 function initMap() {
-    
+    let markers = []
     const map = new google.maps.Map(document.getElementById('map')) 
     let infowindow = new google.maps.InfoWindow()
     
@@ -29,6 +29,7 @@ function initMap() {
             position:location,
             map:map,
             })
+        markers.push(marker)
     }
 
     const addMarker = (spot) => {
@@ -43,6 +44,7 @@ function initMap() {
             infowindow.setContent(`${html}`);
             infowindow.open(map,marker);
             });
+        markers.push(marker)
     }
 
     /*Sets a marker on the passed location on the map */
@@ -58,13 +60,6 @@ function initMap() {
     })
     /*Sets a marker on click and pushes a coords obj to locations array */
 
-    // google.maps.event.addListener(marker, 'click', function() {
-    //     const html = renderer.renderSpot(marker.spot)
-    //     const infowindow = new google.maps.InfoWindow({
-    //         content:`${html}`
-    //     });
-    //         infowindow.open(map,marker);
-    //     });
 
     const renderMarkers = function (trip) {
         const spots = trip.spots
@@ -74,9 +69,17 @@ function initMap() {
     }
 
 
-    const centerMap = function(coords,zoom) {
-        map.setCenter(coords)
+    const centerMap = function(zoom,coords) {
+        // google.maps.event.trigger(map, 'resize');
+        // map.panBy(0, 0);
         map.setZoom(zoom)
+        map.setCenter(coords)
     }
-    return {centerMap, renderMarkers}
+
+    const removeAllMarkers = function() {
+        markers.forEach(marker => marker.setMap(null))
+        markers = []
+    }
+
+    return {centerMap, renderMarkers, removeAllMarkers}
 }
