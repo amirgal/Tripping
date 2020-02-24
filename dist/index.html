@@ -90,16 +90,18 @@
     </script>
 
     <script id="spot-search-template" type="text/x-handlebars">
-      <input type="text" name="" id="spot-search-input" placeholder="Search Location">
-      <button id="spot-search-btn">Search</button>
-      <h6>click on the map to choose your location and then click Next</h6>
-      <button id="back-to-current-trip">Go Back</button>
-      <button id="my-location" data-tripname="{{name}}">Use My Location</button>
-      <button id="set-spot-coords" data-tripname="{{name}}">Next</button>
+        <div class="new-spot" data-tripname="{{name}}">
+            <input type="text" name="" id="spot-search-input" placeholder="Search Location">
+            <button id="spot-search-btn">Search</button>
+            <h6>click on the map to choose your location and then click Next</h6>
+            <button id="back-to-current-trip">Go Back</button>
+            <button id="my-location">Use My Location</button> <!--data-tripname="{{name}}"-->
+            <button id="set-spot-coords">Next</button> <!--data-tripname="{{name}}"-->
+        </div>
     </script>
 
     <script id="new-spot-template" type="text/x-handlebars">
-      <div id="new-spot" data-tripname="{{name}}">
+      <div class="new-spot" data-tripname="{{name}}">
           <h4>{{name}}</h4>
           <h6>Double click on the map to choose your spot!</h6>
           <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
