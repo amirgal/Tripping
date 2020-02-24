@@ -8,7 +8,7 @@ loadMap = function() {
 };
 
 const renderAllTripsMapItems = function() {
-  mapManager.removeMapItems()
+  mapManager.removeMapItems();
   tripManager.myTrips.forEach(trip => {
     if (trip.spots.length != 0) {
       mapManager.renderMapItems(trip);
@@ -23,14 +23,14 @@ const loadPage = async function() {
 };
 
 $("#side-bar").on("click", ".trip", function() {
-    const tripName = $(this).data().name;
-    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-    renderer.renderTrip(trip);
-    mapManager.removeMapItems()
-    mapManager.renderMapItems(trip)
-    if(trip.spots.length != 0) {
-      mapManager.centerMap(5,trip.spots[0].coords)
-    }
+  const tripName = $(this).data().name;
+  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+  renderer.renderTrip(trip);
+  mapManager.removeMapItems();
+  mapManager.renderMapItems(trip);
+  if (trip.spots.length != 0) {
+    mapManager.centerMap(5, trip.spots[0].coords);
+  }
 });
 
 $("#side-bar").on("click", "#editTrip", function() {
@@ -42,11 +42,13 @@ $("#side-bar").on("click", "#editTrip", function() {
 });
 
 $("#side-bar").on("click", ".trip-spot", function() {
-    const spotName = $(this).data().name;
-    const tripName = $(this).closest('#trip-spots').data().tripname;
-    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-    const spot = trip.spots.find(spot => spot.name == spotName);
-    mapManager.centerMap(7,spot.coords)
+  const spotName = $(this).data().name;
+  const tripName = $(this)
+    .closest("#trip-spots")
+    .data().tripname;
+  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+  const spot = trip.spots.find(spot => spot.name == spotName);
+  mapManager.centerMap(7, spot.coords);
 });
 
 $("#side-bar").on("click", "#newTripBtn", function() {
@@ -55,40 +57,46 @@ $("#side-bar").on("click", "#newTripBtn", function() {
 
 $("#side-bar").on("click", "#saveTripBtn", async function() {
   const tripName = $("#trip-name-input").val();
-  const newTrip = new Trip(tripName);
-  await tripManager.saveTrip(newTrip);
-  renderer.renderTrip(newTrip);
+  if (tripName.length == 0) {
+    alert("Trip name is required!");
+  } else {
+    const newTrip = new Trip(tripName);
+    await tripManager.saveTrip(newTrip);
+    renderer.renderTrip(newTrip);
+  }
 });
 
 $("#side-bar").on("click", "#newSpotBtn", function() {
-  markingEnabled = true; 
+  markingEnabled = true;
   const tripName = $(this)
     .closest("#trip-spots")
     .data().tripname;
-  renderer.renderSpotSearch(tripName)
+  renderer.renderSpotSearch(tripName);
 });
 
-$('#side-bar').on('click', '#spot-search-btn', async function() {
-  const spotName = $('#spot-search-input').val()
-  const coords = await tripManager.nameToCoords(spotName)
-  mapManager.centerMap(7, coords)
-})
+$("#side-bar").on("click", "#spot-search-btn", async function() {
+  const spotName = $("#spot-search-input").val();
+  const coords = await tripManager.nameToCoords(spotName);
+  mapManager.centerMap(7, coords);
+});
 
-$('#side-bar').on('click','#my-location', async function () {
-  currPosition = await geoLocation.getLocation()
-  markingEnabled = false
-  mapManager.centerMap(7, currPosition)
-  mapManager.addNewMarker(currPosition)
-})
+$("#side-bar").on("click", "#my-location", async function() {
+  currPosition = await geoLocation.getLocation();
+  markingEnabled = false;
+  mapManager.centerMap(7, currPosition);
+  mapManager.addNewMarker(currPosition);
+});
 
-$('#side-bar').on('click','#set-spot-coords', function() {
-  const tripName = $(this).closest('.new-spot').data().tripname
+$("#side-bar").on("click", "#set-spot-coords", function() {
+  const tripName = $(this)
+    .closest(".new-spot")
+    .data().tripname;
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  if(!markingEnabled){    //only after click
+  if (!markingEnabled) {
+    //only after click
     renderer.renderNewSpot(trip);
   }
-})
-
+});
 
 $("#side-bar").on("click", "#saveSpotBtn", function() {
   const spotName = $("#spot-name-input").val();
@@ -98,18 +106,22 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
   const coords = currPosition;
   const comment = $("#new-comment-input").val();
   const photos = "";
-  const date = $('#spot-date').val()
-  const newSpot = new Spot(spotName, tripName, coords, comment, photos,date);
-  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  tripManager.saveSpot(newSpot);
-  renderer.renderTrip(trip);
-  mapManager.renderMapItems(trip);
+  const date = $("#spot-date").val();
+  if (spotName.length == 0 || comment.length == 0) {
+    alert("Spot name and spot description are required!");
+  } else {
+    const newSpot = new Spot(spotName, tripName, coords, comment, photos, date);
+    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+    tripManager.saveSpot(newSpot);
+    renderer.renderTrip(trip);
+    mapManager.renderMapItems(trip);
+  }
 });
 
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
-  renderAllTripsMapItems()
-  mapManager.centerMap(2,{lat:35,lng:10})
+  renderAllTripsMapItems();
+  mapManager.centerMap(2, { lat: 35, lng: 10 });
 });
 
 $("#side-bar").on("click", "#back-to-current-trip", function() {
@@ -123,22 +135,27 @@ $("#side-bar").on("click", "#back-to-current-trip", function() {
     )
   ) {
     renderer.renderTrip(trip);
-    mapManager.removeAllMarkers()
+    mapManager.removeAllMarkers();
     mapManager.renderMarkers(trip);
-    if(trip.spots.length != 0) {
-      mapManager.centerMap(5,trip.spots[0].coords)
+    if (trip.spots.length != 0) {
+      mapManager.centerMap(5, trip.spots[0].coords);
     }
   }
 });
 
 $("#side-bar").on("click", "#editDone", function() {
   const tripName = $(this)
-  .closest("#edit-trip")
-  .data().tripname;
-const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-trip.name = $('.changeName').val()
-tripManager.updateTrip(trip)
-renderer.renderTrip(trip);
+    .closest("#edit-trip")
+    .data().tripname;
+  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+  const newName = $(".changeName").val();
+  if (newName.length == 0) {
+    alert("Trip name is required!");
+  } else {
+    trip.name = $(".changeName").val();
+    tripManager.updateTrip(trip);
+    renderer.renderTrip(trip);
+  }
 });
 
 $("#side-bar").on("click", "#deleteTrip", function() {
@@ -151,7 +168,7 @@ $("#side-bar").on("click", "#deleteTrip", function() {
   ) {
     tripManager.deleteTrip(trip);
     loadPage();
-    mapManager.centerMap(2,{lat:35,lng:10})
+    mapManager.centerMap(2, { lat: 35, lng: 10 });
   }
 });
 
@@ -163,17 +180,14 @@ $("#side-bar").on("click", ".deleteSpot", async function() {
     .closest(".spot")
     .data().name;
   let trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  const spot = trip.spots.find(
-    spot => spot.name == spotName
-  );
+  const spot = trip.spots.find(spot => spot.name == spotName);
   if (
     confirm("Are you sure you want to delete this post? this cannot be undone")
   ) {
     await tripManager.deleteSpot(spot);
     renderer.renderEditTrip(trip);
-    mapManager.removeMapItems()
-    mapManager.renderMapItems(trip)
-
+    mapManager.removeMapItems();
+    mapManager.renderMapItems(trip);
   }
 });
 

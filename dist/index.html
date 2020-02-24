@@ -78,15 +78,25 @@
     </script>
 
     <script id="main-spot-template" type="text/x-handlebars">
-      <h3>{{name}}</h3>
+        <div class="info-window">
+      <h5>{{name}}:</h3>
+        {{#if date}}
       <p>{{date}}</p>
-      <h5>Comment</h5>
+        {{/if}}
+      <p>Experience in Words:</p>
       <div class="comments">
           {{comment}}
       </div>
+      {{#if photos}}
       <div class="spot-photos">
-          {{photos}}
+          Photos:
+          <div>
+              {{photos}}
+          </div>
       </div>
+      {{/if}}
+      <button id="edit-spot">Edit</button>
+        </div>
     </script>
 
     <script id="spot-search-template" type="text/x-handlebars">

@@ -133,3 +133,13 @@ body {
   text-align: center;
   color: white;
 }
+
+
+.info-window{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.info-window >{
+  border-color: black;
+}
