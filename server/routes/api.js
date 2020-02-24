@@ -30,24 +30,18 @@ router.get(`/convert/:name`, async function(req, res) {
 
 router.get(`/myTrips`, async function(req, res) {
   const trips = await Trip.find({}).populate("spots");
-  console.log(trips);
-
   res.send(trips);
 });
 
 router.post(`/trip`, async function(req, res) {
-  console.log("here");
-
   const tripObj = req.body;
   const trip = new Trip(tripObj);
   await trip.save();
-  console.log(`saved ${trip}`);
   res.end();
 });
 
 router.post(`/spot`, async function(req, res) {
   const spotObj = req.body;
-  console.log(spotObj);
   const spot = new Spot(spotObj);
   await spot.save();
   await Trip.findOneAndUpdate({ name: spot.trip }, { $push: { spots: spot } });
@@ -81,5 +75,11 @@ router.put(`/spot`, async function(req, res) {
   await Spot.replaceOne({ _id: spot._id }, spot);
   res.end();
 });
+
+router.put(`/trip`,async function(req,res){
+  const trip = req.body
+  await Trip.replaceOne({_id: trip._id}, trip)
+  res.end()
+})
 
 module.exports = router;

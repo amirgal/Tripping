@@ -52,6 +52,14 @@ class TripManager {
     });
   }
 
+  updateTrip(trip){
+    $.ajax({
+      url: `/trip`,
+      type: "PUT",
+      data: trip
+    });
+  }
+
   // async coordsToName(coords){
   //   const lat = parseInt(coords.lat)
   //   const lng = parseInt(coords.lng)
