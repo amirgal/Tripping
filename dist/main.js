@@ -67,11 +67,20 @@ $("#side-bar").on("click", "#newSpotBtn", function() {
   renderer.renderSpotSearch(tripName)
 });
 
-$('#side-bar').on('click','#set-spot-cords', function() {
+$('#side-bar').on('click', '#spot-search-btn', async function() {
+  const spotName = $('#spot-search-input').val()
+  const coords = await tripManager.nameToCoords(spotName)
+  mapManager.centerMap(7, coords)
+})
+
+$('#side-bar').on('click','#set-spot-coords', function() {
   const tripName = $(this).data().tripname
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  renderer.renderNewSpot(trip);
+  if(!markingEnabled){    //only after click
+    renderer.renderNewSpot(trip);
+  }
 })
+
 
 $("#side-bar").on("click", "#saveSpotBtn", function() {
   const spotName = $("#spot-name-input").val();
@@ -105,6 +114,8 @@ $("#side-bar").on("click", "#back-to-current-trip", function() {
     )
   ) {
     renderer.renderTrip(trip);
+    mapManager.removeAllMarkers()
+    mapManager.renderMarkers(trip);
   }
 });
 
