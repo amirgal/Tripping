@@ -57,9 +57,13 @@ $("#side-bar").on("click", "#newTripBtn", function() {
 
 $("#side-bar").on("click", "#saveTripBtn", async function() {
   const tripName = $("#trip-name-input").val();
-  const newTrip = new Trip(tripName);
-  await tripManager.saveTrip(newTrip);
-  renderer.renderTrip(newTrip);
+  if (tripName.length == 0) {
+    alert("Trip name is required!");
+  } else {
+    const newTrip = new Trip(tripName);
+    await tripManager.saveTrip(newTrip);
+    renderer.renderTrip(newTrip);
+  }
 });
 
 $("#side-bar").on("click", "#newSpotBtn", function() {
@@ -103,12 +107,39 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
   const comment = $("#new-comment-input").val();
   const photos = "";
   const date = $("#spot-date").val();
-  const newSpot = new Spot(spotName, tripName, coords, comment, photos, date);
-  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  tripManager.saveSpot(newSpot);
-  renderer.renderTrip(trip);
-  mapManager.renderMapItems(trip);
+  if (spotName.length == 0 || comment.length == 0) {
+    alert("Spot name and spot description are required!");
+  } else {
+    const newSpot = new Spot(spotName, tripName, coords, comment, photos, date);
+    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+    tripManager.saveSpot(newSpot);
+    renderer.renderTrip(trip);
+    mapManager.renderMapItems(trip);
+  }
 });
+
+$('#map').on('click','#editedSaveSpotBtn',function(){
+  if($('#edited-spot-name-input').val().length == 0 ||$('#edited-spot-comment-input').val().length == 0 ){
+    alert("Spot name and spot description are required!");
+  }else{
+    const oldSpotName = $(this)
+    .closest(".info-window-edit")
+    .data().spotname;
+    const tripName = $(this)
+    .closest(".info-window-edit")
+    .data().tripname;
+    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+    const spot = trip.spots.find(spot => spot.name == oldSpotName);
+    spot.name = $('#edited-spot-name-input').val()
+    if($('#edited-spot-date-input').val().length != 0){
+      spot.date = $('#edited-spot-date-input').val()
+    }
+    spot.comment = $('#edited-spot-comment-input').val()
+    tripManager.updateSpot(spot)
+    const html = renderer.renderSpot(spot)
+    mapManager.setInfoWindowContent(html)
+  }
+})
 
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
@@ -140,9 +171,14 @@ $("#side-bar").on("click", "#editDone", function() {
     .closest("#edit-trip")
     .data().tripname;
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  trip.name = $(".changeName").val();
-  tripManager.updateTrip(trip);
-  renderer.renderTrip(trip);
+  const newName = $(".changeName").val();
+  if (newName.length == 0) {
+    alert("Trip name is required!");
+  } else {
+    trip.name = $(".changeName").val();
+    tripManager.updateTrip(trip);
+    renderer.renderTrip(trip);
+  }
 });
 
 $("#side-bar").on("click", "#deleteTrip", function() {
@@ -177,5 +213,18 @@ $("#side-bar").on("click", ".deleteSpot", async function() {
     mapManager.renderMapItems(trip);
   }
 });
+
+$('#map').on('click','.edit-spot',function(){
+  const spotName = $(this)
+  .closest(".info-window")
+  .data().spotname;
+  const tripName = $(this)
+  .closest(".info-window")
+  .data().tripname;
+  const tripIndex = tripManager.myTrips.findIndex(trip => trip.name == tripName)
+  const spotIndex = tripManager.myTrips[tripIndex].spots.findIndex(spot => spot.name == spotName)
+  const infoWindowHtml = renderer.renderEditSpot(tripManager.myTrips[tripIndex].spots[spotIndex])
+  mapManager.setInfoWindowContent(infoWindowHtml)
+})
 
 loadPage();

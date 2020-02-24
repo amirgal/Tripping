@@ -154,3 +154,13 @@ input {
   font-size: 30px;
   margin-top: 20px;
 }
+
+
+.info-window{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.info-window >{
+  border-color: black;
+}

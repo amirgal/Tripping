@@ -6,6 +6,9 @@ function initMap() {
     const map = new google.maps.Map(document.getElementById('map'),{styles:mapStyle}) 
     let infowindow = new google.maps.InfoWindow()
     
+    const setInfoWindowContent = function(html){
+        infowindow.setContent(html)
+    }
     //creates icon for polyLines
       var lineSymbol = {
         path: 'M 0,-1 0,1',
@@ -51,6 +54,7 @@ function initMap() {
             infowindow.close()
             infowindow.setContent(`${html}`);
             infowindow.open(map,marker);
+            centerMap(3,spot.coords)
             });
         markers.push(marker)
     }
@@ -106,7 +110,7 @@ function initMap() {
         markers = []
     }
 
-    return {centerMap, renderMapItems, removeMapItems, addNewMarker}
+    return {centerMap, renderMapItems, removeMapItems, addNewMarker ,setInfoWindowContent}
 }
 
 

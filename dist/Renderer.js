@@ -7,6 +7,7 @@ class Renderer {
     this.newSpotTemplate = Handlebars.compile($("#new-spot-template").html());
     this.editTripTemplate = Handlebars.compile($("#edit-trip-template").html());
     this.spotSearchTemplate = Handlebars.compile($('#spot-search-template').html());
+    this.editSpotTemplate = Handlebars.compile($('#spot-edit-template').html());
   }
 
   renderMyTrips(trips) {
@@ -55,5 +56,10 @@ class Renderer {
       .empty()
       .append(newHTML);
     }
+    renderEditSpot(spot){
+        const newHtml = this.editSpotTemplate(spot)
+        return newHtml
+    }
+
 
 }
