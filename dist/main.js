@@ -9,12 +9,16 @@ loadMap = function() {
 const loadPage = async function() {
   await tripManager.getTrips();
   renderer.renderMyTrips(tripManager.myTrips);
+  tripManager.myTrips.forEach(trip => {
+    mapManager.renderMarkers(trip)
+  })
 };
 
 $("#side-bar").on("click", ".trip", function() {
     const tripId = $(this).data().id;
     const trip = tripManager.myTrips.find(trip => trip._id == tripId);
     renderer.renderTrip(trip);
+    mapManager.renderMarkers(trip)
 });
 
 $("#side-bar").on("click", ".trip-spot", function() {

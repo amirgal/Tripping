@@ -41,9 +41,16 @@ function initMap() {
     })
     /*Sets a marker on click and pushes a coords obj to locations array */
 
+    const renderMarkers = function (trip) {
+        const spots = trip.spots
+        spots.forEach(spot => {
+            addMarker(spot.coords)
+        });
+    }
+
     const centerMap = function(coords,zoom) {
         map.setCenter(coords)
         map.setZoom(zoom)
     }
-    return {centerMap}
+    return {centerMap, renderMarkers}
 }
