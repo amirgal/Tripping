@@ -1,8 +1,9 @@
 let markingEnabled = false
 let currPosition
 function initMap() {
-
+    
     const map = new google.maps.Map(document.getElementById('map')) 
+    let infowindow = new google.maps.InfoWindow()
     
     /*Sets initial map view of the entire globe */
     google.maps.event.addListenerOnce(map, 'idle', function() {
@@ -38,10 +39,9 @@ function initMap() {
             })
         google.maps.event.addListener(marker, 'click', function() {
             const html = renderer.renderSpot(marker.spot)
-            const infowindow = new google.maps.InfoWindow({
-                content:`${html}`
-            });
-                infowindow.open(map,marker);
+            infowindow.close()
+            infowindow.setContent(`${html}`);
+            infowindow.open(map,marker);
             });
     }
 
@@ -49,6 +49,7 @@ function initMap() {
 
     /*Sets a marker on click and pushes a coords obj to locations array */
     google.maps.event.addListener(map,'click', event => {
+        infowindow.close()
         const location = {lat: event.latLng.lat(), lng: event.latLng.lng()}
         if(markingEnabled){
             addNewMarker(location)
