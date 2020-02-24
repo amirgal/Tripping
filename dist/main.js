@@ -47,3 +47,5 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
 });
 
 loadPage();
+
+ tripManager.nameToCoords('kingston')
