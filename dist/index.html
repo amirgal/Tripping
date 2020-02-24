@@ -78,6 +78,13 @@
       </div>
     </script>
 
+    <script id="spot-search-template" type="text/x-handlebars">
+        <input type="text" name="" id="spot-search-input" placeholder="Search Location"> 
+        <button id="spot-search-btn">Search</button>
+        <h6>click on the map to choose your location and then click Next</h6>
+        <button id="set-spot-cords" data-tripname="{{name}}">Next</button>
+    </script>
+
     <script id="new-spot-template" type="text/x-handlebars">
       <div id="new-spot" data-tripname="{{name}}">
           <h4>{{name}}</h4>

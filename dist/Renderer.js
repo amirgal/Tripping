@@ -6,6 +6,7 @@ class Renderer {
     this.mainSpotTemplate = Handlebars.compile($("#main-spot-template").html());
     this.newSpotTemplate = Handlebars.compile($("#new-spot-template").html());
     this.editTripTemplate = Handlebars.compile($("#edit-trip-template").html());
+    this.spotSearchTemplate = Handlebars.compile($('#spot-search-template').html());
   }
 
   renderMyTrips(trips) {
@@ -22,7 +23,6 @@ class Renderer {
       .append(newHTML);
   }
 
-  //check to make sure displays all spots
   renderTrip(trip) {
     const newHTML = this.mainTripTemplate(trip);
     $("#side-bar")
@@ -48,4 +48,12 @@ class Renderer {
       .empty()
       .append(newHTML);
   }
+  
+  renderSpotSearch(tripName) {
+      const newHTML = this.spotSearchTemplate({name: tripName})
+      $("#side-bar")
+      .empty()
+      .append(newHTML);
+    }
+
 }
