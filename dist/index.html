@@ -22,22 +22,26 @@
     <div id="map"></div>
 
     <script id="all-trips-template" type="text/x-handlebars">
-        <h3>My Trips</h3>
+      <!-- <h3>My Trips</h3> -->
+      <div id="mytrips">
         {{#each trip}}
-            <div class="trip" data-name="{{name}}">
-                <p class="trip-name">{{name}}</p>            
-            </div>
+          <div class="trip" data-name="{{name}}">
+              <p class="trip-name">{{name}}</p>
+          </div>
         {{/each}}
-        <button id="newTripBtn">Start New Trip</button>
-       
+      </div>
+        <div id="newTripBtn">Start New Trip</div>
+      </div>
     </script>
 
     <script id="add-trip-template" type="text/x-handlebars">
-      <h3>Create New Trip</h3>
-      <h5>Set trip name:</h5>
-      <input type="text" id="trip-name-input" placeholder="Enter trip name">
-      <button id="backToTripsBtn">Go Back</button>
-      <button id="saveTripBtn">Create Trip</button>
+      <div id="createName">
+        <!-- <h3>Create New Trip</h3> -->
+        <!-- <h5>Set trip name:</h5> -->
+        <div id="backToTripsBtn"><i class="fas fa-chevron-left"></i></div>
+        <input type="text" id="trip-name-input" placeholder="Enter trip name">
+        <div id="saveTripBtn">Create Trip</div>
+      </div>
     </script>
 
     <script id="main-trip-template" type="text/x-handlebars">
@@ -94,7 +98,7 @@
           </div>
       </div>
     </script>
-
+    <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
     <script src="./jquery/dist/jquery.js"></script>
     <script src="Trip.js"></script>
