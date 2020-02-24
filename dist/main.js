@@ -6,11 +6,11 @@ loadMap = function() {
   mapManager = initMap();
 };
 
-const renderAllTripMarkers = function() {
-  mapManager.removeAllMarkers()
+const renderAllTripsMapItems = function() {
+  mapManager.removeMapItems()
   tripManager.myTrips.forEach(trip => {
     if (trip.spots.length != 0) {
-      mapManager.renderMarkers(trip);
+      mapManager.renderMapItems(trip);
     }
   });
 };
@@ -18,15 +18,15 @@ const renderAllTripMarkers = function() {
 const loadPage = async function() {
   await tripManager.getTrips();
   renderer.renderMyTrips(tripManager.myTrips);
-  renderAllTripMarkers();
+  renderAllTripsMapItems();
 };
 
 $("#side-bar").on("click", ".trip", function() {
     const tripName = $(this).data().name;
     const trip = tripManager.myTrips.find(trip => trip.name == tripName);
     renderer.renderTrip(trip);
-    mapManager.removeAllMarkers()
-    mapManager.renderMarkers(trip)
+    mapManager.removeMapItems()
+    mapManager.renderMapItems(trip)
     if(trip.spots.length != 0) {
       mapManager.centerMap(5,trip.spots[0].coords)
     }
@@ -76,16 +76,17 @@ $("#side-bar").on("click", "#saveSpotBtn", function() {
   const coords = currPosition;
   const comment = $("#new-comment-input").val();
   const photos = "";
-  const newSpot = new Spot(spotName, tripName, coords, comment, photos);
+  const date = $('#spot-date').val()
+  const newSpot = new Spot(spotName, tripName, coords, comment, photos,date);
   const trip = tripManager.myTrips.find(trip => trip.name == tripName);
   tripManager.saveSpot(newSpot);
   renderer.renderTrip(trip);
-  mapManager.renderMarkers(trip);
+  mapManager.renderMapItems(trip);
 });
 
 $("#side-bar").on("click", "#backToTripsBtn", function() {
   renderer.renderMyTrips(tripManager.myTrips);
-  renderAllTripMarkers()
+  renderAllTripsMapItems()
   // mapManager.centerMap(5,{lat:0,lng:0})
 });
 
@@ -142,6 +143,8 @@ $("#side-bar").on("click", ".deleteSpot", async function() {
   ) {
     await tripManager.deleteSpot(spot);
     renderer.renderEditTrip(trip);
+    mapManager.removeMapItems()
+    mapManager.renderMapItems(trip)
   }
 });
 
