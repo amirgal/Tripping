@@ -12,23 +12,22 @@ const loadPage = async function() {
 };
 
 $("#side-bar").on("click", ".trip", function() {
-  const tripId = $(this).data().id;
-  const trip = tripManager.myTrips.find(trip => trip._id == tripId);
-  renderer.renderTrip(trip);
+    const tripId = $(this).data().id;
+    const trip = tripManager.myTrips.find(trip => trip._id == tripId);
+    renderer.renderTrip(trip);
 });
 
 $("#side-bar").on("click", ".trip-spot", function() {
-  const spotId = $(this).data().id;
-  const tripName = $(this)
-    .closest("#trip-spots")
-    .data().tripname;
-  const trip = tripManager.myTrips.find(trip => trip.name == tripName);
-  const spot = trip.spots.find(spot => spot._id == spotId);
-  renderer.renderSpot(spot);
+    const spotId = $(this).data().id;
+    const tripName = $(this).closest('#trip-spots').data().tripname;
+    const trip = tripManager.myTrips.find(trip => trip.name == tripName);
+    const spot = trip.spots.find(spot => spot._id == spotId);
+    renderer.renderSpot(spot);
+    mapManager.centerMap(spot.coords,8)
 });
 
 $("#side-bar").on("click", "#newTripBtn", function() {
-  renderer.renderNewTrip();
+    renderer.renderNewTrip();
 });
 
 $("#side-bar").on("click", "#saveTripBtn", async function() {

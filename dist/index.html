@@ -62,14 +62,14 @@
     <script id="new-spot-template" type="text/x-handlebars">
         <div id="new-spot" data-tripname="{{name}}">
             <h4>{{name}}</h4>
-            <h4>Double click on the map to choose your spot!</h4>
+            <h6>Double click on the map to choose your spot!</h6>
+            <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
             <span class="when">Start Date</span><input type="date" id="spot-date" />
-            <h3>Comment</h3>
-            <input id="new-comment-input" type="text" placeholder="Tell us about this spot"/>
+            <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
             <div class="spot-photos">
                 <button id="link-google-photos"></button>
                 <label for="myfile">Select a file:</label>
-                <input type="file" id="myphotos" name="myphotos" multiple />
+                <input type="file" id="myphotos" name="myphotos" multiple>
                 <button id="saveSpotBtn">Save Spot</button>
                 <button id="back-to-current-trip">Go Back</button>
             </div>
