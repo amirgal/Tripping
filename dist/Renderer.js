@@ -60,6 +60,10 @@ class Renderer {
         const newHtml = this.editSpotTemplate(spot)
         return newHtml
     }
+    popUpImage(url){
+        $('body').append(`<img class="big-image" src=${url}/>`)
+
+    }
 
 
 }

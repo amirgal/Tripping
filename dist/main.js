@@ -153,6 +153,7 @@ $("#map").on("click", "#editedSaveSpotBtn", function() {
     const html = renderer.renderSpot(spot);
     mapManager.setInfoWindowContent(html);
     renderer.renderTrip(trip)
+    tripManager.updateSpot(spot)
     currPhotos = [];
   }
 });
@@ -258,5 +259,14 @@ $("#map").on("click", ".edit-spot", function() {
     }
   });
 });
+
+$('#map').on('click','.small-image',function(){
+  const imageUrl = $(this).attr('src')
+  renderer.popUpImage(imageUrl)
+})
+
+$('body').on('click','.big-image',function(){
+  $('.big-image').remove()
+})
 
 loadPage();

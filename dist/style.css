@@ -260,3 +260,9 @@ input {
   margin-top: 20px;
   align-self: center;
 }
+.big-image{
+  position: absolute;
+  top:15vh;
+  width: 60vw;
+  left: 20vw;
+}
