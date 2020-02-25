@@ -14,172 +14,171 @@
     <script>UPLOADCARE_PUBLIC_KEY = '84d50b882fba7cd5f539'</script>
     <script>UPLOADCARE_LOCALE_TRANSLATIONS = {buttons: {choose: {files: {one: 'Upload image'}}}}</script>
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=loadMap"></script>
     <link rel="stylesheet" href="style.css" />
     <title>Tripping</title>
-  </head>
-  <body>
+</head>
+<body>
     <!-- left side bar -->
     <div id="side-bar"></div>
-
+    
     <!---map container--->
     <div id="map"></div>
-
+    
     <script id="all-trips-template" type="text/x-handlebars">
-      <!-- <h3>My Trips</h3> -->
-      <div id="mytrips">
-        <div class="navHeader">
-          <div id="newTripBtn" class="addButton"><i class="fas fa-plus icon"></i></div>
-            <h3>My trips</h3>
+        <!-- <h3>My Trips</h3> -->
+        <div id="mytrips">
+            <div class="navHeader">
+                <div id="newTripBtn" class="addButton"><i class="fas fa-plus icon"></i></div>
+                <h3>My trips</h3>
+            </div>
+            {{#each trip}}
+            <div class="trip card" data-name="{{name}}">
+                <p class="trip-name">{{name}}</p>
+            </div>
+            {{/each}}
         </div>
-        {{#each trip}}
-          <div class="trip card" data-name="{{name}}">
-              <p class="trip-name">{{name}}</p>
-          </div>
-        {{/each}}
-      </div>
-      </div>
-    </script>
+    </div>
+</script>
 
-    <script id="add-trip-template" type="text/x-handlebars">
-      <div id="createName">
+<script id="add-trip-template" type="text/x-handlebars">
+    <div id="createName">
         <!-- <h3>Create New Trip</h3> -->
         <!-- <h5>Set trip name:</h5> -->
         <div class="navHeader">
-          <div id="backToTripsBtn" class="back"><i class="fas fa-chevron-left icon"></i></div>
-          <input type="text" id="trip-name-input" placeholder="Enter trip name">
-          <div id="saveTripBtn"><i class="icon fas fa-check"></i></div>
+            <div id="backToTripsBtn" class="back"><i class="fas fa-chevron-left icon"></i></div>
+            <input type="text" id="trip-name-input" placeholder="Enter trip name">
+            <div id="saveTripBtn"><i class="icon fas fa-check"></i></div>
         </div>
       </div>
     </script>
-
+    
     <script id="main-trip-template" type="text/x-handlebars">
-      <div id="trip-spots" data-tripname="{{name}}">
-        <div class="navHeader">
-          <div id="backToTripsBtn" class="back"><i class="icon fas fa-chevron-left"></i></div>
-          <div id="editTrip"><i class="icon far fa-edit"></i></div>
-            <h3>{{name}}</h3>
-          </div>
-          <div id="newSpotBtn" class="card"> <p class="title">Add New Spot</p> <i class="icon fas fa-map-pin"></i></div>
-          {{#each spots}}
-          <div class="trip-spot card" data-name="{{name}}">
-              <p class="spot-name">{{name}}</p>
-          </div>
-          {{/each}}
-      </div>
+        <div id="trip-spots" data-tripname="{{name}}">
+            <div class="navHeader">
+                <div id="backToTripsBtn" class="back"><i class="icon fas fa-chevron-left"></i></div>
+                <div id="editTrip"><i class="icon far fa-edit"></i></div>
+                <h3>{{name}}</h3>
+            </div>
+            <div id="newSpotBtn" class="card"> <p class="title">Add New Spot</p> <i class="icon fas fa-map-pin"></i></div>
+            {{#each spots}}
+            <div class="trip-spot card" data-name="{{name}}">
+                <p class="spot-name">{{name}}</p>
+            </div>
+            {{/each}}
+        </div>
     </script>
-
+    
     <script id="edit-trip-template" type="text/x-handlebars">
-      <div id="edit-trip" data-tripname="{{name}}">
-        <div id=change class="navHeader">
-          <div id="editDone" class="back"><i class="icon fas fa-chevron-left"></i></div>
-          <p>Trip Name:</p>
-          <div id="deleteTrip"><i class="icon far fa-trash-alt"></i></div>
-         <input class="changeName" type="text" value="{{name}}">
+        <div id="edit-trip" data-tripname="{{name}}">
+            <div id=change class="navHeader">
+                <div id="editDone" class="back"><i class="icon fas fa-chevron-left"></i></div>
+                <p>Trip Name:</p>
+                <div id="deleteTrip"><i class="icon far fa-trash-alt"></i></div>
+                <input class="changeName" type="text" value="{{name}}">
+            </div>
+            {{#each spots}}
+            <div class="spot card" data-name="{{name}}">
+                <p class="spot-name">{{name}}</p>
+                <p class="deleteSpot"><i class="icon far fa-trash-alt"></i></p>
+            </div>
+            {{/each}}
         </div>
-        {{#each spots}}
-        <div class="spot card" data-name="{{name}}">
-          <p class="spot-name">{{name}}</p>
-          <p class="deleteSpot"><i class="icon far fa-trash-alt"></i></p>
-        </div>
-        {{/each}}
-      </div>
     </script>
-
+    
     <script id="main-spot-template" type="text/x-handlebars">
         <div class="info-window" data-spotname="{{name}}" data-tripname="{{trip}}">
-      <div class="info-window-header">
-        <h5>{{name}}</h3>
-          {{#if date}}
-        <p>{{date}}</p>
-      </div>
-      {{/if}}
-      {{#if photos}}
-      <div class="spot-photos">
-          <div>
-            {{#each photos}}
-                <a href="{{this}}" target="_blank" >
-                    <img src="{{this}}" alt="some image" />
-                </a>
-             {{/each}}
-          </div>
-      </div>
-      {{/if}}
-      <div class="comments">
-          {{comment}}
-      </div>
-      <div class="edit-spot button">Edit</div>
-        </div>
-    </script>
-
-    <script id="spot-edit-template" type="text/x-handlebars">
-      <div class="info-window-edit" data-spotname="{{name}}" data-tripname="{{trip}}">
-        <div id="infoEditName">
-          <p>Edit Name:</p>
-            <input type="text" value="{{name}}" id="edited-spot-name-input">
-        </div>
-        {{#if date}}
-        <div id="infoEditDate">
-          <p>Edit Date:</p>
-          <input type="date" value="{{date}}" id="edited-spot-date-input">
-        </div>
-      {{/if}}
-        <div class="comments">
-            <p>A few words:</p>
-              <input type="text" id="edited-spot-comment-input" value="{{comment}}">
-        </div>
-          {{#if photos}}
-          <div class="spot-photos">
-                {{#each photos}}
-                <a href="{{this}}" target="_blank" >
-                    <img src="{{this}}" alt="some image" />
-                </a>
-                {{/each}}
-          </div>
-          {{/if}}
-          <div id="editedSaveSpotBtn" class="button">Save Changes</div>
+            <div class="info-window-header">
+                <h5>{{name}}</h3>
+                    {{#if date}}
+                    <p>{{date}}</p>
+                </div>
+                {{/if}}
+                {{#if photos}}
+                <div class="spot-photos">
+                    <div>
+                        {{#each photos}}
+                        <a href="{{this}}" target="_blank" >
+                            <img src="{{this}}" alt="some image" />
+                        </a>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+                <div class="comments">
+                    {{comment}}
+                </div>
+                <div class="edit-spot button">Edit</div>
             </div>
-          <div class="uploader-button" id="link-google-photos">
-              <input
+        </script>
+        
+        <script id="spot-edit-template" type="text/x-handlebars">
+            <div class="info-window-edit" data-spotname="{{name}}" data-tripname="{{trip}}">
+                <div id="infoEditName">
+                    <p>Edit Name:</p>
+                    <input type="text" value="{{name}}" id="edited-spot-name-input">
+                </div>
+                {{#if date}}
+                <div id="infoEditDate">
+                    <p>Edit Date:</p>
+                    <input type="date" value="{{date}}" id="edited-spot-date-input">
+                </div>
+                {{/if}}
+                <div class="comments">
+                    <p>A few words:</p>
+                    <input type="text" id="edited-spot-comment-input" value="{{comment}}">
+                </div>
+                {{#if photos}}
+                <div class="spot-photos">
+                    {{#each photos}}
+                    <a href="{{this}}" target="_blank" >
+                        <img src="{{this}}" alt="some image" />
+                    </a>
+                    {{/each}}
+                </div>
+                {{/if}}
+                <div id="editedSaveSpotBtn" class="button">Save Changes</div>
+            </div>
+            <div class="uploader-button" id="link-google-photos">
+                <input
                 type="hidden"
                 role="uploadcare-uploader"
                 data-tabs="file camera facebook instagram dropbox gdrive gphotos" 
                 data-multiple="true"/>
-          </div>
-    </script>
-
-    <script id="spot-search-template" type="text/x-handlebars">
-      <div class="new-spot" data-tripname="{{name}}">
-        <div class="navHeader">
-          <div id="back-to-current-trip" class="back"><i class="icon fas fa-chevron-left"></i></div>
-          <input type="text" name="" id="spot-search-input" placeholder="Find Location">
-          <div id="spot-search-btn"><i class="icon fas fa-search"></i></div>
+            </div>
+        </script>
+        
+        <script id="spot-search-template" type="text/x-handlebars">
+            <div class="new-spot" data-tripname="{{name}}">
+                <div class="navHeader">
+                    <div id="back-to-current-trip" class="back"><i class="icon fas fa-chevron-left"></i></div>
+                    <input type="text" name="" id="spot-search-input" placeholder="Find Location">
+                    <div id="spot-search-btn"><i class="icon fas fa-search"></i></div>
         </div>
-            <div id="spot-directions">
+        <div id="spot-directions">
               <h4>Drop a pin on the map and click next</h4>
             </div>
-          <div id="my-location" class="button">Use My Location</div>
-          <div id="set-spot-coords"><i class="icon fas fa-chevron-right"></i></div> 
-      </div>
+            <div id="my-location" class="button">Use My Location</div>
+            <div id="set-spot-coords"><i class="icon fas fa-chevron-right"></i></div> 
+        </div>
     </script>
-
+    
     <script id="new-spot-template" type="text/x-handlebars">
-      <div class="new-spot" data-tripname="{{name}}">
-        <div class="navHeader">
-          <div id="back-to-current-trip" class="back"><i class="icon fas fa-chevron-left"></i></div>
-          <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
+        <div class="new-spot" data-tripname="{{name}}">
+            <div class="navHeader">
+                <div id="back-to-current-trip" class="back"><i class="icon fas fa-chevron-left"></i></div>
+                <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
+            </div>
+            <div class="enterDate">
+                <span class="when">Start Date:</span><input type="date" id="spot-date" />
+            </div>
+            <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
+            <div class="spot-photos">
+                <input name='pics' type="hidden" role="uploadcare-uploader" data-multiple='true'/>
+                <div id="saveSpotBtn"><i class="icon fas fa-check-circle"></i></div>
+            </div>
         </div>
-        <div class="enterDate">
-          <span class="when">Start Date:</span><input type="date" id="spot-date" />
-        </div>
-          <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
-          <div class="spot-photos">
-            <input name='pics' type="hidden" role="uploadcare-uploader" data-multiple='true'/>
-            <div id="saveSpotBtn"><i class="icon fas fa-check-circle"></i></div>
-          </div>
-      </div>
     </script>
-
+    
     <script src="GeoLocation.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
@@ -190,5 +189,6 @@
     <script src="TripManager.js"></script>
     <script src="Map.js"></script>
     <script src="main.js"></script>
-  </body>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=loadMap"></script>
+</body>
 </html>

@@ -152,6 +152,7 @@ $("#map").on("click", "#editedSaveSpotBtn", function() {
     spot.photos = currPhotos;
     const html = renderer.renderSpot(spot);
     mapManager.setInfoWindowContent(html);
+    renderer.renderTrip(trip)
     currPhotos = [];
   }
 });
