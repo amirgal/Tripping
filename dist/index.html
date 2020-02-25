@@ -11,10 +11,10 @@
       rel="icon"
       href="https://image.flaticon.com/icons/svg/1127/1127839.svg"
     />
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    /> -->
+    <script>UPLOADCARE_PUBLIC_KEY = '84d50b882fba7cd5f539'</script>
+    <script>UPLOADCARE_LOCALE_TRANSLATIONS = {buttons: {choose: {files: {one: 'Upload image'}}}}</script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=loadMap"></script>
     <link rel="stylesheet" href="style.css" />
     <title>Tripping</title>
   </head>
@@ -128,15 +128,10 @@
             </div>
             {{/if}}
             <div class="uploader-button" id="link-google-photos">
-                <input 
-                  type="hidden"
-                  role="uploadcare-uploader"
-                  data-tabs="file camera facebook instagram dropbox gdrive gphotos" />
+                <input name='pics' type="hidden" role="uploadcare-uploader" data-multiple='true'/>
             </div>
             <button id="editedSaveSpotBtn">Save Spot</button>
               </div>
-    
-    
     </script>
 
 
@@ -150,30 +145,24 @@
             <div id="spot-directions">
               <h4>Drop a pin on the map and click next</h4>
             </div>
-          <div id="my-location" class="button">Use My Location</div> <!--data-tripname="{{name}}"-->
-          <div id="set-spot-coords"><i class="fas fa-chevron-right"></i></div> <!--data-tripname="{{name}}"-->
+          <div id="my-location" class="button">Use My Location</div>
+          <div id="set-spot-coords"><i class="fas fa-chevron-right"></i></div> 
       </div>
     </script>
 
     <script id="new-spot-template" type="text/x-handlebars">
       <div class="new-spot" data-tripname="{{name}}">
-          <h4>{{name}}</h4>
-          <h6>Double click on the map to choose your spot!</h6>
-          <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
-          <span class="when">Start Date</span><input type="date" id="spot-date" />
-          <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
-          <div class="spot-photos">
-              <!-- <button id="link-google-photos"></button>
-              <label for="myfile">Select a file:</label>
-              <input type="file" id="myphotos" name="myphotos" multiple> -->
-              <button id="saveSpotBtn">Save Spot</button>
-              <button id="back-to-current-trip">Go Back</button>
-          </div>
+        <h4>{{name}}</h4>
+        <h6>Double click on the map to choose your spot!</h6>
+        <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
+        <span class="when">Start Date</span><input type="date" id="spot-date" />
+        <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
+        <input name='pics' type="hidden" role="uploadcare-uploader" data-multiple='true'/>
+        <button id="saveSpotBtn">Save Spot</button>
+        <button id="back-to-current-trip">Go Back</button>
       </div>
     </script>
-    <script>UPLOADCARE_PUBLIC_KEY = 'd4f4214e69c1587a5202'</script>
-    <script>UPLOADCARE_LOCALE_TRANSLATIONS = {buttons: {choose: {files: {one: 'Upload image'}}}}</script>
-    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+   
     <script src="GeoLocation.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
@@ -184,10 +173,5 @@
     <script src="TripManager.js"></script>
     <script src="Map.js"></script>
     <script src="main.js"></script>
-    <script
-      async
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=loadMap"
-    ></script>
   </body>
 </html>
