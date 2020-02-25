@@ -147,7 +147,7 @@ $('#map').on('click','#editedSaveSpotBtn',function(){
     const trip = tripManager.myTrips.find(trip => trip.name == tripName);
     const spot = trip.spots.find(spot => spot.name == oldSpotName);
     spot.name = $('#edited-spot-name-input').val()
-    if($('#edited-spot-date-input').val().length != 0){
+    if($('#edited-spot-date-input').val()){
       spot.date = $('#edited-spot-date-input').val()
     }
     spot.comment = $('#edited-spot-comment-input').val()
