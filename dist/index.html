@@ -100,7 +100,9 @@
       <div class="spot-photos">
           Photos:
           <div>
-              {{photos}}
+            {{#each photos}}
+                <img src="{{this}}" alt="">
+             {{/each}}
           </div>
       </div>
       {{/if}}
@@ -123,7 +125,9 @@
             <div class="spot-photos">
                 Photos:
                 <div>
-                    {{photos}}
+                    {{#each photos}}
+                        <img src="{{this}}" alt="">
+                    {{/each}}
                 </div>
             </div>
             {{/if}}
