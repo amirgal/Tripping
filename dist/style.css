@@ -21,6 +21,7 @@ img {
   height: 100vh;
   text-align: center;
   overflow-y: scroll;
+  border-right: 1px solid var(--light-color);
 }
 #side-bar::-webkit-scrollbar {
   display: none;
@@ -258,4 +259,10 @@ input {
   grid-template-rows: auto;
   margin-top: 20px;
   align-self: center;
+}
+.big-image{
+  position: absolute;
+  top:15vh;
+  width: 60vw;
+  left: 20vw;
 }
