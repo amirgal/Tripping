@@ -77,8 +77,12 @@ $("#side-bar").on("click", "#newSpotBtn", function() {
 
 $("#side-bar").on("click", "#spot-search-btn", async function() {
   const spotName = $("#spot-search-input").val();
-  const coords = await tripManager.nameToCoords(spotName);
-  mapManager.centerMap(7, coords);
+  if(spotName.length > 0) {
+    const coords = await tripManager.nameToCoords(spotName);
+    mapManager.centerMap(7, coords);
+  } else {
+    alert('You must enter a location into the search field!')
+  }
 });
 
 $("#side-bar").on("click", "#my-location", async function() {
