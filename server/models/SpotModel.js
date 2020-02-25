@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const spotSchema = new Schema({
   name: String,
-  date: Date,
+  date: String,
   coords: {
     lat: Number,
     lng: Number

@@ -246,7 +246,16 @@ input {
   cursor: pointer;
 }
 .spot-photos {
-  /* display: grid; */
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* grid-template-rows: auto; */
+  margin-top: 20px;
+  align-self: center;
+}
+.info-window-edit .spot-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
   margin-top: 20px;
   align-self: center;
 }
