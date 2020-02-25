@@ -188,6 +188,7 @@ input {
   align-items: flex-start;
 }
 .info-window {
+  min-width: 25vw;
   max-width: 40vw;
 }
 .info-window-header {
@@ -223,9 +224,11 @@ input {
   background-color: white;
   color: var(--dark-color);
   border-bottom: 1px solid var(--med-color);
+  font-size: 18px;
 }
 .info-window-edit p {
   display: inline;
+  font-size: 18px;
 }
 #editedSaveSpotBtn {
   background-color: var(--med-color);
@@ -241,4 +244,18 @@ input {
 }
 .button:hover {
   cursor: pointer;
+}
+.spot-photos {
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* grid-template-rows: auto; */
+  margin-top: 20px;
+  align-self: center;
+}
+.info-window-edit .spot-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  margin-top: 20px;
+  align-self: center;
 }
