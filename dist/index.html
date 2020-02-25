@@ -98,7 +98,9 @@
       <div class="spot-photos">
           <div>
             {{#each photos}}
-                <img src="{{this}}" alt="">
+                <a href="{{this}}" target="_blank" >
+                    <img src="{{this}}" alt="some image" />
+                </a>
              {{/each}}
           </div>
       </div>
@@ -129,7 +131,9 @@
           {{#if photos}}
           <div class="spot-photos">
                 {{#each photos}}
-                    <img src="{{this}}" alt="">
+                <a href="{{this}}" target="_blank" >
+                    <img src="{{this}}" alt="some image" />
+                </a>
                 {{/each}}
           </div>
           {{/if}}
@@ -139,7 +143,8 @@
               <input
                 type="hidden"
                 role="uploadcare-uploader"
-                data-tabs="file camera facebook instagram dropbox gdrive gphotos" />
+                data-tabs="file camera facebook instagram dropbox gdrive gphotos" 
+                data-multiple="true"/>
           </div>
     </script>
 
