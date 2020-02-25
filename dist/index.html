@@ -83,16 +83,58 @@
     </script>
 
     <script id="main-spot-template" type="text/x-handlebars">
-      <h3>{{name}}</h3>
+        <div class="info-window" data-spotname="{{name}}" data-tripname="{{trip}}">
+      <h5>{{name}}:</h3>
+        {{#if date}}
       <p>{{date}}</p>
-      <h5>Comment</h5>
+        {{/if}}
+      <p>Experience in Words:</p>
       <div class="comments">
           {{comment}}
       </div>
+      {{#if photos}}
       <div class="spot-photos">
-          {{photos}}
+          Photos:
+          <div>
+              {{photos}}
+          </div>
       </div>
+      {{/if}}
+      <button class="edit-spot">Edit</button>
+        </div>
     </script>
+
+    <script id="spot-edit-template" type="text/x-handlebars">
+        <div class="info-window-edit" data-spotname="{{name}}" data-tripname="{{trip}}">
+            <input type="text" value="{{name}}" id="edited-spot-name-input">
+              {{#if date}}
+            <p>{{date}}</p>
+              {{/if}}
+              <input type="date" id="edited-spot-date-input">
+            <p>Experience in Words:</p>
+            <div class="comments">
+                <input type="text" id="edited-spot-comment-input" value="{{comment}}">
+            </div>
+            {{#if photos}}
+            <div class="spot-photos">
+                Photos:
+                <div>
+                    {{photos}}
+                </div>
+            </div>
+            {{/if}}
+            <div class="uploader-button" id="link-google-photos">
+                <input 
+                  type="hidden"
+                  role="uploadcare-uploader"
+                  data-tabs="file camera facebook instagram dropbox gdrive gphotos" />
+            </div>
+            <button id="editedSaveSpotBtn">Save Spot</button>
+              </div>
+    
+    
+    </script>
+
 
     <script id="spot-search-template" type="text/x-handlebars">
       <div class="new-spot" data-tripname="{{name}}">
@@ -127,7 +169,9 @@
           </div>
       </div>
     </script>
-
+    <script>UPLOADCARE_PUBLIC_KEY = 'd4f4214e69c1587a5202'</script>
+    <script>UPLOADCARE_LOCALE_TRANSLATIONS = {buttons: {choose: {files: {one: 'Upload image'}}}}</script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
     <script src="GeoLocation.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
