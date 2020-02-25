@@ -11,6 +11,10 @@
       rel="icon"
       href="https://image.flaticon.com/icons/svg/1127/1127839.svg"
     />
+    <script>UPLOADCARE_PUBLIC_KEY = '84d50b882fba7cd5f539'</script>
+    <script>UPLOADCARE_LOCALE_TRANSLATIONS = {buttons: {choose: {files: {one: 'Upload image'}}}}</script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=loadMap"></script>
     <link rel="stylesheet" href="style.css" />
     <title>Tripping</title>
   </head>
@@ -93,7 +97,9 @@
       {{#if photos}}
       <div class="spot-photos">
           <div>
-              {{photos}}
+            {{#each photos}}
+                <img src="{{this}}" alt="">
+             {{/each}}
           </div>
       </div>
       {{/if}}
@@ -122,10 +128,10 @@
         </div>
           {{#if photos}}
           <div class="spot-photos">
-            <div>
               Photos:
-                  {{photos}}
-              </div>
+                {{#each photos}}
+                    <img src="{{this}}" alt="">
+                {{/each}}
           </div>
           {{/if}}
           <div id="editedSaveSpotBtn" class="button">Save Changes</div>
@@ -148,8 +154,8 @@
             <div id="spot-directions">
               <h4>Drop a pin on the map and click next</h4>
             </div>
-          <div id="my-location" class="button">Use My Location</div> <!--data-tripname="{{name}}"-->
-          <div id="set-spot-coords"><i class="icon fas fa-chevron-right"></i></div> <!--data-tripname="{{name}}"-->
+          <div id="my-location" class="button">Use My Location</div>
+          <div id="set-spot-coords"><i class="icon fas fa-chevron-right"></i></div> 
       </div>
     </script>
 
@@ -164,23 +170,12 @@
         </div>
           <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
           <div class="spot-photos">
-              <!-- <button id="link-google-photos"></button>
-              <label for="myfile">Select a file:</label>
-              <input type="file" id="myphotos" name="myphotos" multiple> -->
-              <div id="saveSpotBtn"><i class="icon fas fa-check-circle"></i></div>
+            <input name='pics' type="hidden" role="uploadcare-uploader" data-multiple='true'/>
+            <div id="saveSpotBtn"><i class="icon fas fa-check-circle"></i></div>
           </div>
       </div>
     </script>
 
-    <script>
-      UPLOADCARE_PUBLIC_KEY = "d4f4214e69c1587a5202";
-    </script>
-    <script>
-      UPLOADCARE_LOCALE_TRANSLATIONS = {
-        buttons: { choose: { files: { one: "Upload image" } } }
-      };
-    </script>
-    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
     <script src="GeoLocation.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
@@ -191,10 +186,5 @@
     <script src="TripManager.js"></script>
     <script src="Map.js"></script>
     <script src="main.js"></script>
-    <script
-      async
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_JqNqDOBblSYEmRe_ZdqVI83c9zN92Lk&callback=loadMap"
-    ></script>
   </body>
 </html>

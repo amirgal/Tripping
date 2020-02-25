@@ -2,10 +2,18 @@ const renderer = new Renderer();
 const tripManager = new TripManager();
 const geoLocation = new GeoLocation();
 let mapManager;
+let currPhotos = []
 
 loadMap = function() {
   mapManager = initMap();
 };
+
+
+// widget.onUploadComplete(function (fileInfo) {
+//   console.log('File name: ', fileInfo.name);
+//   console.log('CDN URL: ', fileInfo.cdnUrl);
+//   // and so on...
+// });
 
 const renderAllTripsMapItems = function() {
   mapManager.removeMapItems();
@@ -95,18 +103,26 @@ $("#side-bar").on("click", "#set-spot-coords", function() {
   if (!markingEnabled) {
     //only after click
     renderer.renderNewSpot(trip);
+    
+    const multiWidget = uploadcare.MultipleWidget('[role=uploadcare-uploader][data-multiple]');
+    multiWidget.onUploadComplete(data => {
+      for(let i = 0 ; i < data.count ; i++) {
+        currPhotos.push(`${data.cdnUrl}nth/${i}/`)
+      }
+    });
   }
 });
 
 $("#side-bar").on("click", "#saveSpotBtn", function() {
   const spotName = $("#spot-name-input").val();
   const tripName = $(this)
-    .closest(".new-spot")
-    .data().tripname;
+  .closest(".new-spot")
+  .data().tripname;
   const coords = currPosition;
   const comment = $("#new-comment-input").val();
-  const photos = "";
+  const photos = currPhotos;
   const date = $("#spot-date").val();
+  currPhotos = []
   if (spotName.length == 0 || comment.length == 0) {
     alert("Spot name and spot description are required!");
   } else {
@@ -135,9 +151,11 @@ $('#map').on('click','#editedSaveSpotBtn',function(){
       spot.date = $('#edited-spot-date-input').val()
     }
     spot.comment = $('#edited-spot-comment-input').val()
+    spot.photos = currPhotos                  //added for uploading images from edit
     tripManager.updateSpot(spot)
     const html = renderer.renderSpot(spot)
     mapManager.setInfoWindowContent(html)
+    currPhotos = []                           //added for uploading images from edit
   }
 })
 
@@ -225,6 +243,16 @@ $('#map').on('click','.edit-spot',function(){
   const spotIndex = tripManager.myTrips[tripIndex].spots.findIndex(spot => spot.name == spotName)
   const infoWindowHtml = renderer.renderEditSpot(tripManager.myTrips[tripIndex].spots[spotIndex])
   mapManager.setInfoWindowContent(infoWindowHtml)
+
+  //added for uploading images from edit
+  currPhotos = tripManager.myTrips[tripIndex].spots[spotIndex].photos
+  const multiWidget = uploadcare.MultipleWidget('[role=uploadcare-uploader][data-multiple]');
+    multiWidget.onUploadComplete(data => {
+      for(let i = 0 ; i < data.count ; i++) {
+        currPhotos.push(`${data.cdnUrl}nth/${i}/`)
+      }
+    });
+    //added for uploading images from edit
 })
 
 loadPage();
