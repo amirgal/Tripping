@@ -1,3 +1,9 @@
+:root {
+  --dark-color: #0e1626;
+  --med-color: #2c6675;
+  --light-color: #6f9ba5;
+}
+
 body {
   margin: 0;
   display: grid;
@@ -9,9 +15,10 @@ body {
   width: 100%;
 }
 #side-bar {
-  background-color: #0e1626;
+  background-color: var(--dark-color);
   height: 100vh;
   text-align: center;
+  overflow-y: scroll;
 }
 
 .button {
@@ -21,8 +28,7 @@ body {
   display: grid;
   height: 50px;
   border-radius: 10px;
-  background-color: #023e58;
-  background-color: #6f9ba5;
+  background-color: var(--med-color);
   align-content: center;
   font-size: 20px;
 }
@@ -30,7 +36,7 @@ input {
   grid-column: 2/6;
   text-align: center;
   color: White;
-  background-color: #0e1626;
+  background-color: var(--dark-color);
   border: none;
   font-size: 20px;
   margin: 0 15px;
@@ -48,7 +54,7 @@ input {
 }
 
 .card {
-  background-color: #2c6675;
+  background-color: var(--med-color);
   width: calc(100% - 30px);
   margin: auto;
   margin-top: 20px;
@@ -66,13 +72,17 @@ input {
   padding-top: 15px;
   padding-bottom: 30px;
   grid-column: 1/7;
-  border-bottom: 2px solid #6f9ba5;
-  color: #6f9ba5;
+  border-bottom: 2px solid var(--light-color);
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  /* position: -webkit-sticky; */
+  position: sticky;
+  top: 0;
 }
 .navHeader h3 {
   margin: 0;
   grid-column: 1/7;
-  color: #6f9ba5;
+  color: var(--light-color);
   font-size: 32px;
 }
 .navHeader p {
@@ -82,7 +92,7 @@ input {
 }
 #editTrip {
   font-size: 20px;
-  color: #6f9ba5;
+  color: var(--light-color);
   grid-column: 6/7;
 }
 #edit-trip {
@@ -91,7 +101,7 @@ input {
   align-items: center;
 }
 #editName {
-  color: #6f9ba5;
+  color: var(--light-color);
   grid-column: 1/7;
   font-size: 18px;
 }
@@ -106,16 +116,7 @@ input {
 #edit-trip .deleteSpot {
   grid-column: 6/7;
 }
-/* .changeName {
-  grid-column: 1/7;
-  text-align: center;
-  color: White;
-  background-color: #0e1626;
-  border: none;
-  font-size: 26px;
-  margin-top: 15px;
-  margin-bottom: 0;
-} */
+
 #deleteTrip {
   grid-column: 6/7;
   font-size: 24px;
@@ -134,7 +135,7 @@ input {
   grid-template-columns: repeat(6, 1fr);
   font-size: 20px;
   height: 40px;
-  background-color: #6f9ba5;
+  background-color: var(--light-color);
   margin-bottom: 30px;
 }
 #newSpotBtn p {
@@ -146,21 +147,47 @@ input {
   padding-right: 10px;
 }
 #spot-directions {
-  color: #6f9ba5;
+  color: var(--light-color);
   font-size: 24px;
 }
 #set-spot-coords {
-  color: #6f9ba5;
+  color: var(--light-color);
   font-size: 30px;
   margin-top: 20px;
 }
 
-
-.info-window{
+.enterDate {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  color: var(--light-color);
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+.when {
+  grid-column: 1/3;
+}
+#spot-date {
+  grid-column: 3/6;
+  font-size: 15px;
+}
+#new-comment-input {
+  background-color: var(--light-color);
+  width: calc(100% - 30px);
+  margin: auto;
+  margin-top: 30px;
+}
+#saveSpotBtn {
+  color: var(--light-color);
+  font-size: 32px;
+  margin-top: 30px;
+}
+.info-window {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.info-window >{
+.info-window > {
   border-color: black;
 }

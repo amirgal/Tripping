@@ -11,10 +11,6 @@
       rel="icon"
       href="https://image.flaticon.com/icons/svg/1127/1127839.svg"
     />
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    /> -->
     <link rel="stylesheet" href="style.css" />
     <title>Tripping</title>
   </head>
@@ -157,17 +153,19 @@
 
     <script id="new-spot-template" type="text/x-handlebars">
       <div class="new-spot" data-tripname="{{name}}">
-          <h4>{{name}}</h4>
-          <h6>Double click on the map to choose your spot!</h6>
+        <div class="navHeader">
+          <div id="back-to-current-trip" class="back"><i class="fas fa-chevron-left"></i></div>
           <input type="text" name="" id="spot-name-input" placeholder="Name Your Spot">
-          <span class="when">Start Date</span><input type="date" id="spot-date" />
+        </div>
+        <div class="enterDate">
+          <span class="when">Start Date:</span><input type="date" id="spot-date" />
+        </div>
           <textarea id="new-comment-input" type="text" placeholder="Describe your experience" cols="50" rows="4"></textarea>
           <div class="spot-photos">
               <!-- <button id="link-google-photos"></button>
               <label for="myfile">Select a file:</label>
               <input type="file" id="myphotos" name="myphotos" multiple> -->
-              <button id="saveSpotBtn">Save Spot</button>
-              <button id="back-to-current-trip">Go Back</button>
+              <div id="saveSpotBtn"><i class="fas fa-check-circle"></i></div>
           </div>
       </div>
     </script>
